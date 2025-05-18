@@ -1,0 +1,17 @@
+<h1>Your Projects</h1>
+
+<% if @projects.any? %>
+  <ul>
+    <% @projects.each do |project| %>
+      <li>
+        <%= link_to project.name, project_path(project) %> 
+        - <%= link_to 'Edit', edit_project_path(project) %> 
+        - <%= link_to 'Delete', project_path(project), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You have no projects yet. <%= link_to 'Create a new project', new_project_path %></p>
+<% end %>
+
+<%= link_to 'Create New Project', new_project_path %>
