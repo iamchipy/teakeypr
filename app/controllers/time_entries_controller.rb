@@ -17,6 +17,12 @@ class TimeEntriesController < ApplicationController
     end
   end
 
+  # added to do simple sum of all time for project
+  def report
+    @time_entries = current_user.time_entries.group_by_day(:start_time).sum(:duration)
+  end
+
+
   private
 
   def set_task

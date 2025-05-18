@@ -1,3 +1,6 @@
+<%= line_chart @time_entries %>
+
+
 <%= form_with model: @time_entry do |f| %>
   <%= f.label :task_id %>
   <%= f.collection_select :task_id, @tasks, :id, :name, prompt: "Select a task" %>
@@ -13,3 +16,4 @@
 
   <%= f.submit %>
 <% end %>
+
