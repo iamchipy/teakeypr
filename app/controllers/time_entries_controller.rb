@@ -1,13 +1,23 @@
 class TimeEntriesController < ApplicationController
+  # before_action :authenticate_user! # TODO should get this in but next sprint
+  # helper ActionView::Helpers::DateHelper # TODO learn to use this for math
+
   before_action :set_time_entry, only: %i[ show edit update destroy ]
 
   # GET /time_entries or /time_entries.json
   def index
-    @time_entries = TimeEntry.all
+    @project = Project.find(params[:project_id])
+    @task = Task.find(params[:task_id])
+    @time_entries = @task.time_entries
   end
 
   # GET /time_entries/1 or /time_entries/1.json
   def show
+  end
+
+  # GET /time_entries/all
+  def list
+    @time_entries = current_user.time_entries.includes(task: :project)
   end
 
   # GET /time_entries/new

@@ -1,0 +1,19 @@
+<h1>All My Time Entries</h1>
+
+<% if @time_entries.any? %>
+  <ul>
+    <% @time_entries.each do |entry| %>
+      <li>
+        <strong>Project:</strong> <%= entry.task.project.name %><br>
+        <strong>Task:</strong> <%= entry.task.name %><br>
+        <strong>Start:</strong> <%= entry.start_time.strftime("%Y-%m-%d %H:%M") %><br>
+        <strong>End:</strong> <%= entry.end_time.strftime("%Y-%m-%d %H:%M") %><br>
+        <strong>Duration:</strong> <%= distance_of_time_in_words(entry.start_time, entry.end_time) %><br>
+        <strong>Description:</strong> <%= entry.description %>
+      </li>
+      <hr>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No time entries logged yet.</p>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_19_014636) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_19_160031) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -35,7 +35,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_19_014636) do
 
   create_table "time_entries", force: :cascade do |t|
     t.datetime "start_time"
-    t.date "end_time"
+    t.datetime "end_time"
+    t.text "description"
+    t.integer "task"
+    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
