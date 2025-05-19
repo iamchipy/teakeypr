@@ -1,23 +1,13 @@
 class TimeEntriesController < ApplicationController
-  # before_action :authenticate_user! # TODO should get this in but next sprint
-  # helper ActionView::Helpers::DateHelper # TODO learn to use this for math
-
   before_action :set_time_entry, only: %i[ show edit update destroy ]
 
   # GET /time_entries or /time_entries.json
   def index
-    @project = Project.find(params[:project_id])
-    @task = Task.find(params[:task_id])
-    @time_entries = @task.time_entries
+    @time_entries = TimeEntry.all
   end
 
   # GET /time_entries/1 or /time_entries/1.json
   def show
-  end
-
-  # GET /time_entries/all
-  def list
-    @time_entries = current_user.time_entries.includes(task: :project)
   end
 
   # GET /time_entries/new
@@ -75,6 +65,6 @@ class TimeEntriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def time_entry_params
-      params.expect(time_entry: [ :start_time, :end_time, :description, :task, :notes ])
+      params.expect(time_entry: [ :user_id, :start_time, :end_time, :description, :task, :notes ])
     end
 end

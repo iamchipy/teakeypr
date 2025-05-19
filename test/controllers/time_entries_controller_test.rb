@@ -17,7 +17,7 @@ class TimeEntriesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create time_entry" do
     assert_difference("TimeEntry.count") do
-      post time_entries_url, params: { time_entry: { description: @time_entry.description, end_time: @time_entry.end_time, notes: @time_entry.notes, start_time: @time_entry.start_time, task: @time_entry.task } }
+      post time_entries_url, params: { time_entry: { description: @time_entry.description, end_time: @time_entry.end_time, notes: @time_entry.notes, start_time: @time_entry.start_time, task: @time_entry.task, user_id: @time_entry.user_id } }
     end
 
     assert_redirected_to time_entry_url(TimeEntry.last)
@@ -34,7 +34,7 @@ class TimeEntriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update time_entry" do
-    patch time_entry_url(@time_entry), params: { time_entry: { description: @time_entry.description, end_time: @time_entry.end_time, notes: @time_entry.notes, start_time: @time_entry.start_time, task: @time_entry.task } }
+    patch time_entry_url(@time_entry), params: { time_entry: { description: @time_entry.description, end_time: @time_entry.end_time, notes: @time_entry.notes, start_time: @time_entry.start_time, task: @time_entry.task, user_id: @time_entry.user_id } }
     assert_redirected_to time_entry_url(@time_entry)
   end
 

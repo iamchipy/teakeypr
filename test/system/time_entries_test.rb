@@ -19,6 +19,7 @@ class TimeEntriesTest < ApplicationSystemTestCase
     fill_in "Notes", with: @time_entry.notes
     fill_in "Start time", with: @time_entry.start_time
     fill_in "Task", with: @time_entry.task
+    fill_in "User", with: @time_entry.user_id
     click_on "Create Time entry"
 
     assert_text "Time entry was successfully created"
@@ -34,6 +35,7 @@ class TimeEntriesTest < ApplicationSystemTestCase
     fill_in "Notes", with: @time_entry.notes
     fill_in "Start time", with: @time_entry.start_time.to_s
     fill_in "Task", with: @time_entry.task
+    fill_in "User", with: @time_entry.user_id
     click_on "Update Time entry"
 
     assert_text "Time entry was successfully updated"
