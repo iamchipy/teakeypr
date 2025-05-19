@@ -1,9 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  start_time: 2025-05-18 13:02:26
-  end_time: 2025-05-18
+  start_time: 2025-05-19 11:00:31
+  end_time: 2025-05-19 11:00:31
+  description: MyText
+  task: 1
+  notes: MyText
 
 two:
-  start_time: 2025-05-18 13:02:26
-  end_time: 2025-05-18
+  start_time: 2025-05-19 11:00:31
+  end_time: 2025-05-19 11:00:31
+  description: MyText
+  task: 1
+  notes: MyText
