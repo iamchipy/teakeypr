@@ -7,6 +7,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 
     <%= yield :head %>
 
@@ -23,9 +24,8 @@
   </head>
 
   <body>
-    <%# MOVE TO NAV BAR %>
-    <%= link_to 'Sign Up', new_user_registration_path %> |
-    <%= link_to 'Log In', new_user_session_path %>
+    <%= render 'layouts/navbar' %>
+
 
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
