@@ -14,6 +14,12 @@ class TasksTest < ApplicationSystemTestCase
     visit tasks_url
     click_on "New task"
 
+    check "Completed" if @task.completed
+    fill_in "Description", with: @task.description
+    fill_in "Due date", with: @task.due_date
+    fill_in "Notes", with: @task.notes
+    fill_in "Project", with: @task.project_id
+    fill_in "Title", with: @task.title
     click_on "Create Task"
 
     assert_text "Task was successfully created"
@@ -24,6 +30,12 @@ class TasksTest < ApplicationSystemTestCase
     visit task_url(@task)
     click_on "Edit this task", match: :first
 
+    check "Completed" if @task.completed
+    fill_in "Description", with: @task.description
+    fill_in "Due date", with: @task.due_date.to_s
+    fill_in "Notes", with: @task.notes
+    fill_in "Project", with: @task.project_id
+    fill_in "Title", with: @task.title
     click_on "Update Task"
 
     assert_text "Task was successfully updated"

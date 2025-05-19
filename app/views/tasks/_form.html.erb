@@ -12,6 +12,36 @@
   <% end %>
 
   <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.textarea :description %>
+  </div>
+
+  <div>
+    <%= form.label :project_id, style: "display: block" %>
+    <%= form.number_field :project_id %>
+  </div>
+
+  <div>
+    <%= form.label :completed, style: "display: block" %>
+    <%= form.checkbox :completed %>
+  </div>
+
+  <div>
+    <%= form.label :notes, style: "display: block" %>
+    <%= form.textarea :notes %>
+  </div>
+
+  <div>
+    <%= form.label :due_date, style: "display: block" %>
+    <%= form.datetime_field :due_date %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

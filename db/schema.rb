@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_18_180226) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_19_014636) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,11 +23,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_18_180226) do
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.string "name"
-    t.bigint "project_id", null: false
+    t.string "title"
+    t.text "description"
+    t.integer "project_id"
+    t.boolean "completed"
+    t.text "notes"
+    t.datetime "due_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 
   create_table "time_entries", force: :cascade do |t|
@@ -50,5 +53,4 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_18_180226) do
   end
 
   add_foreign_key "projects", "users"
-  add_foreign_key "tasks", "projects"
 end

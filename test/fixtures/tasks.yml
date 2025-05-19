@@ -1,9 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  project: one
+  title: MyString
+  description: MyText
+  project_id: 1
+  completed: false
+  notes: MyText
+  due_date: 2025-05-18 20:46:36
 
 two:
-  name: MyString
-  project: two
+  title: MyString
+  description: MyText
+  project_id: 1
+  completed: false
+  notes: MyText
+  due_date: 2025-05-18 20:46:36
