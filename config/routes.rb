@@ -3,21 +3,25 @@ Rails.application.routes.draw do
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
+  # RESTful project/task/time_entry nesting
   resources :projects do
     resources :tasks do
       resources :time_entries
     end
   end
 
-  root to: "projects#index"
+  resources :tasks  # If we need flat access to tasks
 
-  # access to reporting in a non-nested url
-  # SAME_AS:: get 'time_entries/list', to: 'time_entries#list', as: 'list_time_entries'
-  # ACCESSED_VIA:: <%= link_to "My Time Entries", list_time_entries_path %>
-  resources :time_entries, only: [] do
+  # Global non-nested access to time_entries
+  resources :time_entries, only: [ :new, :create ] do
     collection do
-      get 'list'  # maps GET /time_entries/list to time_entries#list
+      get "list"  # /time_entries/list
     end
   end
-  get 'report', to: 'time_entries#report'  # For reports
+
+  # Optional report route
+  get "report", to: "time_entries#report"
+
+  # Set new root path to new time entry as our starting page
+  root to: "time_entries#new"
 end
