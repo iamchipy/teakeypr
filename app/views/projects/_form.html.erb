@@ -1,0 +1,12 @@
+<%= line_chart @project %>
+
+<%= form_with model: @project do |f| %>
+  <%= f.label :project_id %>
+  <%= f.text_area :project_id%>
+
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+
+  <%= f.submit %>
+<% end %>
+
