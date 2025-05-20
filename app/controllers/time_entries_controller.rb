@@ -1,5 +1,6 @@
 class TimeEntriesController < ApplicationController
   before_action :set_time_entry, only: %i[ show edit update destroy ]
+  before_action :authorize_user!, only: %i[show edit update destroy]  # redirects defensively
   before_action :authenticate_user!
 
   # GET /time_entries or /time_entries.json
@@ -19,7 +20,8 @@ class TimeEntriesController < ApplicationController
 
   # GET /time_entries/new
   def new
-    @time_entry = TimeEntry.new
+    # this allows auto filling of task ID when provided
+    @time_entry = TimeEntry.new(task_id: params[:task_id])
   end
 
   # GET /time_entries/1/edit
@@ -29,10 +31,11 @@ class TimeEntriesController < ApplicationController
   # POST /time_entries or /time_entries.json
   def create
     @time_entry = TimeEntry.new(time_entry_params)
+    @time_entry.user_id ||= current_user.id  # Set current_user as default if not provided
 
     respond_to do |format|
       if @time_entry.save
-        format.html { redirect_to @time_entry, notice: "Time entry was successfully created." }
+        format.html { redirect_to time_entries_path(@time_entry), notice: "Time entry was successfully created." }
         format.json { render :show, status: :created, location: @time_entry }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -73,5 +76,12 @@ class TimeEntriesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def time_entry_params
       params.expect(time_entry: [ :start_time, :end_time, :user_id, :task_id, :note ])
+      # CHANGE? to prevent assigning times to OTHER users for now
+      # TODO add admin methods
+      # params.require(:time_entry).permit(:start_time, :end_time, :task_id, :note)
+    end
+
+    def authorize_user!
+      redirect_to root_path, alert: "Not authorized" unless @time_entry.user == current_user
     end
 end

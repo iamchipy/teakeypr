@@ -1,3 +1,4 @@
+<%# app/views/time_entries/_form.html.erb %>
 <%= form_with(model: time_entry) do |form| %>
   <% if time_entry.errors.any? %>
     <div style="color: red">
@@ -13,27 +14,27 @@
 
   <div>
     <%= form.label :start_time, style: "display: block" %>
-    <%= form.datetime_field :start_time %>
+    <%= form.datetime_field :start_time, value: time_entry.start_time || Time.now %>
   </div>
 
   <div>
     <%= form.label :end_time, style: "display: block" %>
-    <%= form.datetime_field :end_time %>
+    <%= form.datetime_field :end_time, value: time_entry.end_time || (Time.now + 1.hour) %>
   </div>
 
   <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
+    <%= form.label :user_id, "Assigned User", style: "display: block" %>
+    <%= form.collection_select :user_id, User.all, :id, :email, prompt: "Select a user", selected: time_entry.user_id || current_user.id  %>
   </div>
 
   <div>
-    <%= form.label :task_id, style: "display: block" %>
-    <%= form.text_field :task_id %>
+    <%= form.label :task_id, "Assigned Task", style: "display: block" %>
+    <%= form.collection_select :task_id, Task.all, :id, :name, prompt: "Select a task (optional)", selected: time_entry.task_id || nil  %>
   </div>
 
   <div>
     <%= form.label :note, style: "display: block" %>
-    <%= form.textarea :note %>
+    <%= form.text_area :note %>
   </div>
 
   <div>
