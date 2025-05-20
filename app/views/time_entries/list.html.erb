@@ -1,6 +1,6 @@
 <h1>All My Time Entries</h1>
 
-<% if @time_entries.any? %>
+<% if @time_entries.present? %>
   <ul>
     <% @time_entries.each do |entry| %>
       <li>

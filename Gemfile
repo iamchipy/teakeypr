@@ -5,6 +5,7 @@ gem "devise"      # For user authentication
 gem "chartkick"   # For visual reports
 gem "groupdate"   # For date grouping in reports
 gem "pg", "~> 1.1" # Check for the latest version on RubyGems
+gem "cocoon"      # For nexted dynamic forms
 
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"

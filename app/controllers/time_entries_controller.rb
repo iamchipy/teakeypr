@@ -9,6 +9,10 @@ class TimeEntriesController < ApplicationController
     # @projects = TimeEntry.all
   end
 
+  def list
+    self.index
+  end
+
   # GET /time_entries/1 or /time_entries/1.json
   def show
   end
