@@ -6,7 +6,7 @@ class TimeEntriesController < ApplicationController
   # GET /time_entries or /time_entries.json
   def index
     # user scoped search
-    @projects = current_user.projects
+    @time_entries = current_user.time_entries
     # @projects = TimeEntry.all
   end
 

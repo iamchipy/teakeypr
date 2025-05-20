@@ -4,12 +4,13 @@
   <ul>
     <% @time_entries.each do |entry| %>
       <li>
-        <strong>Project:</strong> <%= entry.task.project.name %><br>
-        <strong>Task:</strong> <%= entry.task.title %><br>
+        <strong>Project:</strong> <%= entry.task&.project&.name %><br>
+        <strong>Task:</strong> <%= entry.task&.name.presence %><br>
+
         <strong>Start:</strong> <%= entry.start_time.strftime("%Y-%m-%d %H:%M") %><br>
         <strong>End:</strong> <%= entry.end_time.strftime("%Y-%m-%d %H:%M") %><br>
         <strong>Duration:</strong> <%= distance_of_time_in_words(entry.start_time, entry.end_time) %><br>
-        <strong>Description:</strong> <%= entry.description %>
+        <strong>Note:</strong> <%= entry.note %>
       </li>
       <hr>
     <% end %>
