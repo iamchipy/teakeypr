@@ -1,13 +1,13 @@
+# app/controllers/projects_controller.rb
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!  # Ensure the user is authenticated
+  before_action :authenticate_user!
+  before_action :set_project, only: %i[show edit update destroy]
 
   def index
-    @projects = current_user.projects  # Only show the current user's projects
+    @projects = current_user.projects
   end
 
-  def show
-    @project = Project.find(params[:id])
-  end
+  def show; end
 
   def new
     @project = Project.new
@@ -15,7 +15,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(project_params)
+    @project = current_user.projects.build(project_params)
 
     if @project.save
       redirect_to @project, notice: 'Project was successfully created.'
@@ -25,33 +25,34 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @project = Project.find(params[:id])
     @project.tasks.build if @project.tasks.empty?
   end
 
   def update
-    @project = Project.find(params[:id])
     if @project.update(project_params)
-      redirect_to project_path(@project), notice: "Project successfully updated!"
+      redirect_to @project, notice: 'Project successfully updated!'
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @project = Project.find(params[:id])
     @project.destroy
-    redirect_to projects_path, notice: "Project successfully deleted."
+    redirect_to projects_path, notice: 'Project successfully deleted.', status: :see_other
   end
 
   private
+
+  def set_project
+    @project = current_user.projects.find(params[:id])
+  end
 
   def project_params
     params.require(:project).permit(
       :name,
       :description,
       user_ids: [],
-      tasks_attributes: [:id, :title, :description, :_destroy]
+      tasks_attributes: %i[id title description _destroy]
     )
   end
 end
