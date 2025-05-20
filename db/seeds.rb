@@ -14,9 +14,9 @@
 puts "Seeding data..."
 
 # Create Users
-user = User.find_or_create_by!(email: "admin@example.com") do |u|
-  u.password = "password"
-  u.password_confirmation = "password"
+user = User.find_or_create_by!(email: "hire@johndavidbasson.com") do |u|
+  u.password = "shine*arun2major5HARDY"
+  u.password_confirmation = "shine*arun2major5HARDY"
 end
 
 # Create Projects
