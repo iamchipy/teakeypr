@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
 
   # Global non-nested access to time_entries
-  resources :time_entries, only: [ :new, :create ] do
+  resources :time_entries do  #, only: [ :new, :create ] do
     collection do
       get "list"  # /time_entries/list
     end
