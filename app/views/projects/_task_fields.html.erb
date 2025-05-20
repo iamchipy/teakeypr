@@ -1,0 +1,11 @@
+<!-- app/views/projects/_task_fields.html.erb -->
+<div class="task-fields">
+  <%= f.label :name, "Task Name" %>
+  <%= f.text_field :title %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+
+  <%= f.check_box :_destroy %>
+  <%= f.label :_destroy, "Remove Task" %>
+</div>
