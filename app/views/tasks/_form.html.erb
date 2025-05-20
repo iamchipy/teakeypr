@@ -18,7 +18,7 @@
 
   <div>
     <%= form.label :project_id, style: "display: block" %>
-    <%= form.text_field :project_id %>
+    <%= form.collection_select :project_id, Project.all, :id, :name, prompt: "Select a Project (optional)", selected: task.project_id || nil  %>    
   </div>
 
   <div>
@@ -33,7 +33,12 @@
 
   <div>
     <%= form.label :deadline, style: "display: block" %>
-    <%= form.datetime_field :deadline %>
+    <%= form.datetime_field :deadline, value: task.deadline || (Time.now + 1.hour)  %>
+  </div>
+
+  <div>
+    <%= form.label :users, "Assigned Users" %>
+    <%= form.collection_select :user_ids, User.all, :id, :email, {}, multiple: true %>
   </div>
 
   <div>

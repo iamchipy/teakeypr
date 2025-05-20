@@ -5,8 +5,7 @@ class TasksController < ApplicationController
   # GET /tasks or /tasks.json
   def index
     # user scoped search
-    @task = current_user.tasks    
-
+    @tasks = current_user.tasks
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -15,7 +14,8 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    @task = Task.new
+    # this allows auto filling of task ID when provided
+    @task = Task.new(project_id: params[:project_id])
   end
 
   # GET /tasks/1/edit
@@ -68,6 +68,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.expect(task: [ :name, :project_id, :description, :notes, :deadline, :completed ])
+      params.expect(task: [:name, :project_id, :description, :notes, :deadline, :completed, user_ids: [] ])
     end
 end
