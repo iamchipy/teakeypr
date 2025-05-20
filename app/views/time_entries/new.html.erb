@@ -1,35 +1,11 @@
-<h1>Log New Time Entry</h1>
+<% content_for :title, "New time entry" %>
 
-<%= form_with model: @time_entry, url: time_entries_path, local: true do |f| %>
-  <div>
-    <%= label_tag :project_id, "Project" %><br>
-    <%= select_tag :project_id,
-      options_from_collection_for_select(@projects, :id, :name),
-      prompt: "Select a project",
-      id: "project_selector" %>
-  </div>
+<h1>New time entry</h1>
 
-  <div>
-    <%= f.label :task_id %><br>
-    <%= f.collection_select :task_id, [], :id, :name, prompt: "Select a task", id: "task_selector" %>
-  </div>
+<%= render "form", time_entry: @time_entry %>
 
-  <div>
-    <%= f.label :start_time %><br>
-    <%= f.datetime_select :start_time %>
-  </div>
+<br>
 
-  <div>
-    <%= f.label :end_time %><br>
-    <%= f.datetime_select :end_time %>
-  </div>
-
-  <div>
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-
-  <div>
-    <%= f.submit "Log Time Entry" %>
-  </div>
-<% end %>
+<div>
+  <%= link_to "Back to time entries", time_entries_path %>
+</div>

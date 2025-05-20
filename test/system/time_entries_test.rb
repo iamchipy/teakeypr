@@ -14,11 +14,10 @@ class TimeEntriesTest < ApplicationSystemTestCase
     visit time_entries_url
     click_on "New time entry"
 
-    fill_in "Description", with: @time_entry.description
     fill_in "End time", with: @time_entry.end_time
-    fill_in "Notes", with: @time_entry.notes
+    fill_in "Note", with: @time_entry.note
     fill_in "Start time", with: @time_entry.start_time
-    fill_in "Task", with: @time_entry.task
+    fill_in "Task", with: @time_entry.task_id
     fill_in "User", with: @time_entry.user_id
     click_on "Create Time entry"
 
@@ -30,11 +29,10 @@ class TimeEntriesTest < ApplicationSystemTestCase
     visit time_entry_url(@time_entry)
     click_on "Edit this time entry", match: :first
 
-    fill_in "Description", with: @time_entry.description
     fill_in "End time", with: @time_entry.end_time.to_s
-    fill_in "Notes", with: @time_entry.notes
+    fill_in "Note", with: @time_entry.note
     fill_in "Start time", with: @time_entry.start_time.to_s
-    fill_in "Task", with: @time_entry.task
+    fill_in "Task", with: @time_entry.task_id
     fill_in "User", with: @time_entry.user_id
     click_on "Update Time entry"
 

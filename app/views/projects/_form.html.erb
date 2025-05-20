@@ -1,43 +1,38 @@
-<!-- app/views/projects/_form.html.erb -->
-<%= form_with model: @project do |f| %>
-  <% if @project.errors.any? %>
+<%= form_with(model: project, local: true) do |form| %>
+  <% if project.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
       <ul>
-        <% @project.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+        <% project.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
   </div>
 
-  <div>
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
   </div>
 
-  <div>
-    <%= f.label :user_ids, "Assign Users" %><br>
-    <%= f.collection_select :user_ids, User.all, :id, :email, {}, multiple: true %>
-  </div>
+  <h3>Tasks</h3>
+  <%= form.fields_for :tasks do |task_fields| %>
+    <div class="nested-fields">
+      <%= task_fields.text_field :name, placeholder: "Task Name" %>
+      <%= task_fields.text_area :description, placeholder: "Task Description" %>
+      <%= task_fields.datetime_select :deadline %>
+      <%= task_fields.check_box :completed %>
+      <%= link_to_remove_association "Remove Task", task_fields %>
+    </div>
+  <% end %>
+  <%= link_to_add_association 'Add Task', form, :tasks %>
 
-  <div>
-    <h3>Tasks</h3>
-    <%= f.fields_for :tasks do |task_fields| %>
-      <%= render 'task_fields', f: task_fields %>
-    <% end %>
-
-    <%= link_to 'Add Task', '#', id: 'add-task', data: {
-      prototype: f.fields_for(:tasks, Task.new, child_index: 'new_task') { |builder| render('task_fields', f: builder) }.gsub("\n", "")
-    } %>
-  </div>
-
-  <div>
-    <%= f.submit %>
+  <div class="actions">
+    <%= form.submit %>
   </div>
 <% end %>
