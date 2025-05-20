@@ -1,9 +1,12 @@
 class TimeEntriesController < ApplicationController
   before_action :set_time_entry, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /time_entries or /time_entries.json
   def index
-    @time_entries = TimeEntry.all
+    # user scoped search
+    @projects = current_user.projects
+    # @projects = TimeEntry.all
   end
 
   # GET /time_entries/1 or /time_entries/1.json
