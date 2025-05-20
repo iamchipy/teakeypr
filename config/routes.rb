@@ -10,7 +10,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :tasks  # If we need flat access to tasks
+  resources :tasks do
+    collection do
+      get "list"
+    end
+  end
 
   # Global non-nested access to time_entries
   resources :time_entries, only: [ :new, :create ] do
