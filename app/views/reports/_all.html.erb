@@ -1,0 +1,42 @@
+<%# app/views/reports/_tasks.html.erb %>
+<%= render 'reports/sort_buttons' %>
+
+<ul>
+   
+
+<% tasks.each do |task| %>
+    <%= link_to task_path(task), class: "task-list-item-link" do %>
+    <li>
+        <strong><%= task.name %></strong> 
+        Project: <%= task.project&.name %> |
+        Deadline: <%= task.deadline&.to_date %> |
+        Completed: <%= task.completed ? '✅' : '❌' %>
+    </li>
+    <% end  %>
+<% end %>
+
+
+  <% projects.each do |project| %>
+    <%= link_to project_path(project), class: "project-list-item-link" do %>
+      <li>
+        <strong><%= project.name %></strong> |
+        Created: <%= project.created_at.to_date %> |
+        Tasks: <%= project.tasks.count %>
+      </li>
+    <% end %>
+  <% end %>  
+<%# </ul> %>
+<%# <ul> %>
+
+<% time_entries.each do |entry| %>
+    <%= link_to time_entry_path(entry), class: "time_entry-list-item-link" do %>
+    <li>
+        Task: <%= entry.task&.name || 'Unassigned' %> |
+        Start: <%= entry.start_time %> |
+        End: <%= entry.end_time %> |
+        Duration: <%= distance_of_time_in_words(entry.start_time, entry.end_time) %>
+    </li>
+    <% end %>
+
+  <% end %>
+</ul>

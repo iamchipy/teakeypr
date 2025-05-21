@@ -10,21 +10,26 @@
   </p>
 
   <p><strong>Assigned Users:</strong>
-    <%= @project&.users&.map(&:email)&.join(", ") %>
+    <%= project&.users&.map(&:email)&.join(", ") %>
   </p>
 
 
 
   <h3>Tasks</h3>
-  <%= link_to 'Add Task', new_task_path(project_id: @project&.id||nil), class: "btn-link" %>
+  
 
-  <% if @project.present? %>
+  <% if project.present? %>
     <ul class="task-button-group">
-      <% @project.tasks.each do |task| %>
+      <% project.tasks.each do |task| %>
         <li>
           <%= link_to task.name, task_path(task), class: "btn-link task-button" %>
         </li>
       <% end %>
     </ul>
   <% end %>
+
+  <%= link_to 'Add Task', new_task_path(project_id: @project&.id||nil), class: "btn-link" %>
+  <%= link_to "Edit Project", edit_project_path(project), class: "btn-link project-button" %>
+  <%= link_to "Destroy Project", project_path(project), method: :delete, data: { confirm: "Are you sure?" }, class: "btn-danger btn-link project-button" %>
+
 </div>

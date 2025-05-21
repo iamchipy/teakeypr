@@ -10,38 +10,38 @@
   </p>
 
   <p>
-    <strong>Description:</strong>
-    <%= task.description %>
-  </p>
-
-  <p>
-    <strong>Notes:</strong>
-    <%= task.notes %>
-  </p>
-
-  <p>
-    <strong>Deadline:</strong>
-    <%= task.deadline %>
-  </p>
-
-  <p>
     <strong>Completed:</strong>
     <%= task.completed %>
   </p>
 
   <p>
     <strong>Assigned Users:</strong>
-    
-
-    
-    <% if @task && @task.users.any? %>
-      <%= @task.user_ids %>   
-      <% @task.users.each do |user| %>
+    <% if task&.users&.any? %>
+    <%# task.inspect %>
+      <% task.users.each do |user| %>
         <%= user.email %>
         <%= user.id %>
       <% end %>
+    <%else%>
+      <%="Unassigned"%>
     <% end %>
-
   </p>  
 
+  <h3>Time Entries</h3>
+  <% if task&.time_entries.present? %>
+    <ul class="time_entry-button-group">
+      <% task.time_entries.each do |emtry| %>
+        <li>
+          <%= link_to emtry.id, time_entry_path(emtry), class: "btn-link time_entry-button" %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= link_to 'Add Time', new_time_entry_path(task_id: task&.id||nil), class: "btn-link" %>
+  <%= link_to "Edit", edit_task_path(task), class: "btn-link task-button" %>
+  <%= link_to "Destroy", task_path(task), method: :delete, data: { confirm: "Are you sure?" }, class: "btn-danger btn-link task-button" %>
+
+
 </div>
+ 

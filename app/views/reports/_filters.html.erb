@@ -1,0 +1,17 @@
+<%# app/views/reports/_filters.html.erb %>
+<div class="filters">
+  <%= form_with url: root_path, method: :get, local: true do %>
+    <%= hidden_field_tag :tab, params[:tab] %>
+    <% if params[:tab] == 'time_entries' || params[:tab] == 'tasks' %>
+      <%= label_tag :project_id, "Filter by Project:" %>
+      <%= select_tag :project_id, options_from_collection_for_select(@projects||[], :id, :name, params[:project_id]), include_blank: true, onchange: "this.form.submit();" %>
+    <% end %>
+    <% if params[:tab] == 'time_entries' %>
+      <%= label_tag :task_id, "Filter by Task:" %>
+      <%= select_tag :task_id, options_from_collection_for_select(@tasks||[], :id, :name, params[:task_id]), include_blank: true, onchange: "this.form.submit();" %>
+    <% end %>
+
+  <%# Clear Filters Button: reloads the current tab with no project/task params %>
+  <%# <%= link_to "Clear Filters", root_path(tab: params[:tab]), method: :get, class: "btn btn-link" %>
+  <% end %>
+</div>

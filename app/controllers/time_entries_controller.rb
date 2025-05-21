@@ -7,15 +7,11 @@ class TimeEntriesController < ApplicationController
   def index
     # user scoped search
     @time_entries = current_user.time_entries
-    # @projects = TimeEntry.all
-  end
-
-  def list
-    self.index
   end
 
   # GET /time_entries/1 or /time_entries/1.json
   def show
+    @time_entry = TimeEntry.includes(:user, :task, :project).find(params[:id])
   end
 
   # GET /time_entries/new
@@ -75,7 +71,7 @@ class TimeEntriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def time_entry_params
-      params.require(:time_entry).permit(:start_time, :end_time, :user_id, :task_id, :note)
+      params.require(:time_entry).permit(:start_time, :end_time, :user_id, :task_id, :note, :users [], :tasks [])
     end
 
     def authorize_user!

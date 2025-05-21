@@ -28,5 +28,5 @@ Rails.application.routes.draw do
   get "report", to: "time_entries#report"
 
   # Set new root path to new time entry as our starting page
-  root to: "time_entries#new"
+  root to: "home#index"
 end

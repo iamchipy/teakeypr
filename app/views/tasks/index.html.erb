@@ -5,8 +5,7 @@
 <div id="tasks">
   <% if @tasks.present? %>
     <% @tasks.each do |task| %>
-      <%= render task %>
-      <p><%= link_to "Show this task", task %></p>
+      <%= render task %>  
     <% end %>
   <% else %>
     <p>No tasks found.</p>

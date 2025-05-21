@@ -5,12 +5,14 @@
 <h1>Time entries</h1>
 
 <div id="time_entries">
-  <% @time_entries.each do |time_entry| %>
-    <%= render time_entry %>
-    <p>
-      <%= link_to "Show this time entry", time_entry %>
-    </p>
-  <% end %>
+
+  <% if @time_entries.present? %>
+    <% @time_entries.each do |time_entry| %>
+      <%= render time_entry %>
+    <% end %>
+  <% else %>
+    <p>No Time Entries found.</p>
+  <% end %>  
 </div>
 
-<%= link_to "New time entry", new_time_entry_path %>
+<%= link_to "New time entry", new_time_entry_path,class: "btn-link" %>

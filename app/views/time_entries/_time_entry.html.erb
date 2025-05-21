@@ -24,6 +24,7 @@
     <%= time_entry.note %>
   </p>
 
-  <%= link_to "Edit", time_entry_path(time_entry), class: "btn-link time_entry-button" %>
+  <%= link_to "Edit", edit_time_entry_path(time_entry), class: "btn-link time_entry-button" %>
+  <%= link_to "Destroy", time_entry_path(time_entry), method: :delete, data: { confirm: "Are you sure?" }, class: "btn-danger btn-link time_entry-button" %>
 
 </div>

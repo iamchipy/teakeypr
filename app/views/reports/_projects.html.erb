@@ -1,0 +1,14 @@
+<%# app/views/reports/_projects.html.erb %>
+<%= render 'reports/sort_buttons' %>
+
+<ul>
+  <% projects.each do |project| %>
+    <%= link_to project_path(project), class: "project-list-item-link" do %>
+      <li>
+        <strong><%= project.name %></strong> |
+        Created: <%= project.created_at.to_date %> |
+        Tasks: <%= project.tasks.count %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>

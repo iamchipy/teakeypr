@@ -24,7 +24,7 @@ class TasksController < ApplicationController
   def index
     # user scoped search
     @tasks = current_user.tasks
-    # @tasks = current_user.tasks.includes(:project)  # Use includes to avoid N+1 queries
+    # @tasks = current_user.tasks.includes(:project, :users, :time_entries)  # Use includes to avoid N+1 queries
   end
 
   # GET /tasks/1 or /tasks/1.json

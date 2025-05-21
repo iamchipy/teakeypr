@@ -1,0 +1,7 @@
+<%# app/views/reports/_tabs.html.erb %>
+<div class="tabs">
+  <%= link_to 'Time Entries', root_path(tab: 'time_entries'), class: active_tab == 'time_entries' ? 'active' : '' %>
+  <%= link_to 'Tasks', root_path(tab: 'tasks'), class: active_tab == 'tasks' ? 'active' : '' %>
+  <%= link_to 'Projects', root_path(tab: 'projects'), class: active_tab == 'projects' ? 'active' : '' %>
+  <%= link_to 'All', root_path(tab: 'all'), class: active_tab == 'all' ? 'active' : '' %>
+</div>
