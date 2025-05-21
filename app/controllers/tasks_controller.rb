@@ -2,6 +2,24 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
 
+  # Add this block near the top of the controller
+  rescue_from ActiveRecord::RecordNotFound do
+    respond_to do |format|
+      format.html do
+        redirect_to tasks_path, alert: "Task not found."
+      end
+
+      format.turbo_stream do
+        flash[:alert] = "Task not found."
+        redirect_to tasks_path, status: :see_other
+      end
+
+      format.json do
+        render json: { error: "Task not found." }, status: :not_found
+      end
+    end
+  end
+
   # GET /tasks or /tasks.json
   def index
     # user scoped search
@@ -53,18 +71,32 @@ class TasksController < ApplicationController
 
   # DELETE /tasks/1 or /tasks/1.json
   def destroy
-    @task.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to tasks_path, status: :see_other, notice: "Task was successfully destroyed." }
-      format.json { head :no_content }
+    if @task.time_entries.exists?
+      respond_to do |format|
+        format.html { redirect_to tasks_path, alert: "Cannot delete task with time entries." }
+        format.json { render json: { error: "Cannot delete task with time entries." }, status: :unprocessable_entity }
+        format.turbo_stream do
+          redirect_to tasks_path, alert: "Cannot delete task with time entries. (turbo)"
+        end
+      end
+    else
+      @task.destroy
+      respond_to do |format|
+        format.html { redirect_to tasks_path, status: :see_other, notice: "Task was successfully destroyed." }
+        format.json { head :no_content }
+        format.turbo_stream do
+          # redirect_to tasks_path, status: :see_other, alert: "Task was successfully destroyed. (turbo)"
+          render turbo_stream: turbo_stream.remove(@task)
+        end
+      end
     end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
-      @task = Task.find(params.expect(:id))
+      @task = Task.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
