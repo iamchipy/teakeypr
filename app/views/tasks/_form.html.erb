@@ -2,7 +2,6 @@
   <% if task.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
-
       <ul>
         <% task.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -36,10 +35,14 @@
     <%= form.datetime_field :deadline, value: task.deadline || (Time.now + 1.hour)  %>
   </div>
 
+
   <div>
-    <%= form.label :users, "Assigned Users" %>
-    <%= form.collection_select :user_ids, User.all, :id, :email, {}, multiple: true %>
-  </div>
+    <%= form.label :user_ids, "Assign Users" %><br>
+    <%= select_tag "task[user_ids][]", options_from_collection_for_select(User.all, :id, :email, task.user_ids),
+      multiple: true,
+      class: "user-select",
+      data: { placeholder: "Select users to assign" } %>
+  </div>  
 
   <div>
     <%= form.label :completed, style: "display: block" %>

@@ -11,12 +11,12 @@
 
   <p>
     <strong>User:</strong>
-    <%= time_entry.user_id %>
+    <%= time_entry.user.email %>
   </p>
 
   <p>
     <strong>Task:</strong>
-    <%= time_entry.task_id %>
+    <%= time_entry.task&.name || nil %>
   </p>
 
   <p>

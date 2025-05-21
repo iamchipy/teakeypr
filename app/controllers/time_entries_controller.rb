@@ -75,10 +75,7 @@ class TimeEntriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def time_entry_params
-      params.expect(time_entry: [ :start_time, :end_time, :user_id, :task_id, :note ])
-      # CHANGE? to prevent assigning times to OTHER users for now
-      # TODO add admin methods
-      # params.require(:time_entry).permit(:start_time, :end_time, :task_id, :note)
+      params.require(:time_entry).permit(:start_time, :end_time, :user_id, :task_id, :note)
     end
 
     def authorize_user!

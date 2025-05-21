@@ -6,7 +6,7 @@
 
   <p>
     <strong>Project:</strong>
-    <%= task.project_id %>
+    <%= task.project&.name || nil %>
   </p>
 
   <p>
@@ -28,5 +28,20 @@
     <strong>Completed:</strong>
     <%= task.completed %>
   </p>
+
+  <p>
+    <strong>Assigned Users:</strong>
+    
+
+    
+    <% if @task && @task.users.any? %>
+      <%= @task.user_ids %>   
+      <% @task.users.each do |user| %>
+        <%= user.email %>
+        <%= user.id %>
+      <% end %>
+    <% end %>
+
+  </p>  
 
 </div>

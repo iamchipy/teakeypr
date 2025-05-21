@@ -1,38 +1,41 @@
-<%= form_with(model: project, local: true) do |form| %>
+<%= form_with(model: project) do |form| %>
   <% if project.errors.any? %>
-    <div id="error_explanation">
+    <div style="color: red">
       <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
       <ul>
-        <% project.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+        <% project.errors.each do |error| %>
+          <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
+  <div>
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
 
-  <div class="field">
+  <div>
     <%= form.label :description %>
     <%= form.text_area :description %>
   </div>
 
-  <h3>Tasks</h3>
-  <%= form.fields_for :tasks do |task_fields| %>
-    <div class="nested-fields">
-      <%= task_fields.text_field :name, placeholder: "Task Name" %>
-      <%= task_fields.text_area :description, placeholder: "Task Description" %>
-      <%= task_fields.datetime_select :deadline %>
-      <%= task_fields.check_box :completed %>
-      <%= link_to_remove_association "Remove Task", task_fields %>
-    </div>
-  <% end %>
-  <%= link_to_add_association 'Add Task', form, :tasks %>
+  <div>
+    <%= form.label :task_ids, "Assign Tasks" %><br>
+    <%= select_tag "project[task_ids][]",
+      options_from_collection_for_select(Task.where(project_id: [nil, project.id]), :id, :name, project.task_ids),
+      multiple: true,
+      class: "task-select",
+      data: { placeholder: "Select tasks to assign" } %>
+  </div>
 
-  <div class="actions">
+  <div>
+    <%= form.label :user_ids, "Assign Users" %><br>
+    <%= form.collection_select :user_ids, User.all, :id, :email, {}, multiple: true %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
+

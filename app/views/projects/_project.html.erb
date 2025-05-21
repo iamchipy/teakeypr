@@ -9,12 +9,22 @@
     <%= project.description %>
   </p>
 
+  <p><strong>Assigned Users:</strong>
+    <%= @project&.users&.map(&:email)&.join(", ") %>
+  </p>
+
+
 
   <h3>Tasks</h3>
-  <%= link_to 'Add Task', new_task_path(project_id: @project.id) %>
-  <ul>
-    <% @project.tasks.each do |task| %>
-      <li><%= link_to task.name, task_path(task) %></li>
-    <% end %>
-  </ul>
+  <%= link_to 'Add Task', new_task_path(project_id: @project&.id||nil), class: "btn-link" %>
+
+  <% if @project.present? %>
+    <ul class="task-button-group">
+      <% @project.tasks.each do |task| %>
+        <li>
+          <%= link_to task.name, task_path(task), class: "btn-link task-button" %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 </div>

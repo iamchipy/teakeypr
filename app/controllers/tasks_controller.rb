@@ -6,6 +6,7 @@ class TasksController < ApplicationController
   def index
     # user scoped search
     @tasks = current_user.tasks
+    # @tasks = current_user.tasks.includes(:project)  # Use includes to avoid N+1 queries
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -68,6 +69,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.expect(task: [:name, :project_id, :description, :notes, :deadline, :completed, user_ids: [] ])
+      params.require(:task).permit(:name, :project_id, :description, :notes, :deadline, :completed, user_ids: [], time_entry_ids: [])
     end
 end
