@@ -1,10 +1,10 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user! 
+  before_action :authenticate_user!
 
   def index
     # helps set default tab for redirects
     if params[:tab].blank?
-      redirect_to root_path(tab: 'time_entries') and return
+      redirect_to root_path(tab: "time_entries") and return
     end
 
     # Fetch parameters or set defaults
@@ -17,7 +17,7 @@ class HomeController < ApplicationController
     case @tab
     when "projects"
       @projects = current_user.projects
-    when 'time_entries'
+    when "time_entries"
       @time_entries = filtered_time_entries
       @projects = current_user.projects
       @tasks = filtered_tasks
@@ -50,7 +50,7 @@ class HomeController < ApplicationController
     scope = current_user.time_entries.includes(:task)
     scope = scope.where(task_id: @task_id) if @task_id.present?
     scope = scope.joins(:task).where(tasks: { project_id: @project_id }) if @project_id.present?
-    scope = scope.sort_by { |e| e.end_time - e.start_time } if @sort == 'duration'
+    scope = scope.sort_by { |e| e.end_time - e.start_time } if @sort == "duration"
     scope
   end
 
@@ -67,7 +67,7 @@ class HomeController < ApplicationController
     scope = current_user.time_entries.includes(:task)
     scope = scope.where(task_id: @task_id) if @task_id.present?
     scope = scope.joins(:task).where(tasks: { project_id: @project_id }) if @project_id.present?
-    scope = scope.order('end_time - start_time') if @sort == 'duration'
+    scope = scope.order("end_time - start_time") if @sort == "duration"
     scope
   end
 end

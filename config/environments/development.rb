@@ -72,4 +72,7 @@ Rails.application.configure do
 
   # Added for Devise
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+
+  config.require_master_key = true
+  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 end
