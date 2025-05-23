@@ -29,3 +29,6 @@ production:
     <<: *default
     database: tea_keeper_production
 
+  cable:  
+    <<: *default
+    database: tea_keeper_production 
