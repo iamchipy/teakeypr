@@ -4,4 +4,6 @@ class Task < ApplicationRecord
 
   # to guard deletions at model level too
   has_many :time_entries, dependent: :restrict_with_error
+
+  validates :name, presence: true
 end
