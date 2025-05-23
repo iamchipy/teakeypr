@@ -29,3 +29,8 @@ production:
     <<: *default
     database: tea_keeper_production
 
+  cable:  
+    <<: *primary
+
+  queue:
+    <<: *primary
