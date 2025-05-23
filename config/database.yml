@@ -35,5 +35,5 @@ production:
   # queue:
   #   <<: *primary
 
-  # cache:
-  #   <<: *primary    
+  cache:
+    <<: *primary    
