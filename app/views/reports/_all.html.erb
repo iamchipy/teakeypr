@@ -8,7 +8,7 @@
     <%= link_to task_path(task), class: "task-list-item-link" do %>
     <li>
         <strong><%= task.name %></strong> 
-        Project: <%= task.project&.name %> |
+        Task: <%= task.project&.name %> |
         Deadline: <%= task.deadline&.to_date %> |
         Completed: <%= task.completed ? '✅' : '❌' %>
     </li>
