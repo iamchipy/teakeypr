@@ -1,3 +1,12 @@
-<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="256" cy="256" r="256" fill="red"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="backup_copy" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 1000 1000" style="enable-background:new 0 0 1000 1000;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#65CBE1;}
+</style>
+<path class="st0" d="M471.77,673.95L349.23,538.29l56.21-173.95l178.79-38.25l119.3-25.67l-81.8-90.56L323.6,273.74l-75.01,232.11
+	l-88.74,19.21l102.96-318.62l386.81-82.87l142.52,157.78l119.3-25.67L687.17,7.4l-506.2,108.44L21.79,608.44L368.8,992.6L875,884.16
+	l103.21-319.4l-119.43,25.7l-46.86,145.01l-60.79-67.29l18.95-58.63L471.77,673.95z M406.34,876.42L182.3,628.39l88.52-19.16
+	l163.41,180.9l238.44-51.08l60.79,67.29L406.34,876.42z"/>
 </svg>
