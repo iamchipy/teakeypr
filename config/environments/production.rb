@@ -87,5 +87,5 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   config.require_master_key = true
-  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
+  # config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 end

@@ -4,11 +4,12 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  
-  username: <%= Rails.application.credentials.dig(:production, :username) %>
-  password: <%= Rails.application.credentials.dig(:production, :password) %>
-  host: <%= Rails.application.credentials.dig(:production, :host) %>
-  port: <%= Rails.application.credentials.dig(:production, :port) || 5432 %>
+
+  username: dev_keeper
+  password: dev_password
+  host: localhost
+  port: 5432
+
 
 development:
   <<: *default
@@ -28,6 +29,10 @@ production:
   primary: &primary
     <<: *default
     database: tea_keeper_production
+    username: <%= Rails.application.credentials.dig(:production, :username) %>
+    password: <%= Rails.application.credentials.dig(:production, :password) %>
+    host: <%= Rails.application.credentials.dig(:production, :host) %>
+    port: <%= Rails.application.credentials.dig(:production, :port) || 5432 %>    
 
   # cable:  
   #   <<: *primary
