@@ -3,9 +3,16 @@
     "emeraldwalk.runonsave": {
         "commands": [
             {
+                // EMBEDED RUBY FILES
                 "match": "\\.html\\.erb$", // regex to match file extension
                 "isAsync": true,
                 "cmd": "ruby bin/erb_commenter.rb ${file}" // run your script on save
+            },
+            {
+                // RUBY FILES
+                "match": "\\.rb$", // regex to match file extension
+                "isAsync": true,
+                "cmd": "ruby bin/rb_commenter.rb ${file}" // run your script on save
             }
         ]
     }
