@@ -1,3 +1,4 @@
+<%# app/views/tasks/_form.html.erb %>
 <%= form_with(model: task) do |form| %>
   <% if task.errors.any? %>
     <div style="color: red">
@@ -35,14 +36,16 @@
     <%= form.datetime_field :deadline, value: task.deadline || (Time.now + 1.hour)  %>
   </div>
 
-
   <div>
     <%= form.label :user_ids, "Assign Users" %><br>
-    <%= select_tag "task[user_ids][]", options_from_collection_for_select(User.all, :id, :email, task.user_ids),
-      multiple: true,
-      class: "user-select",
-      data: { placeholder: "Select users to assign" } %>
-  </div>  
+    <%= form.select :user_ids,
+        options_from_collection_for_select(User.all, :id, :email, task.user_ids),
+        {}, # no options here
+        multiple: true,
+        class: "user-select",
+        data: { placeholder: "Select users to assign" } %>
+  </div>
+
 
   <div>
     <%= form.label :completed, style: "display: block" %>
