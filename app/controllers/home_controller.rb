@@ -1,11 +1,13 @@
+# app/controllers/home_controller.rb
 class HomeController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    # helps set default tab for redirects
-    # if params[:tab].blank?
-    #   redirect_to root_path(tab: "time_entries") and return
-    # end
+    # Re-Enabling this because we want Time_Entries to auto-load when
+    # we navigate here from another tab
+    if params[:tab].blank?
+      redirect_to root_path(tab: "time_entries") and return
+    end
 
     # Fetch parameters or set defaults
     @tab = params[:tab].presence || "time_entries"
