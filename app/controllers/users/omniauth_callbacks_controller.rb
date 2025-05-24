@@ -16,8 +16,18 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def discord
+    # @user = User.from_omniauth(request.env["omniauth.auth"])
+    # @origin = request.env["omniauth.origin"]
+    # puts @user
+
     @user = User.from_omniauth(request.env["omniauth.auth"])
-    @origin = request.env["omniauth.origin"]
-    puts @user
+
+    if @user.persisted?
+      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Discord"
+      sign_in_and_redirect @user, event: :authentication
+    else
+      session["devise.discord_data"] = request.env["omniauth.auth"].except("extra")
+      redirect_to new_user_registration_url, alert: @user.errors.full_messages.join("\n")
+    end
   end
 end
