@@ -18,13 +18,13 @@ class HomeController < ApplicationController
     # Fetch data based on the tab
     case @tab
     when "projects"
-      @projects = current_user.projects
+      @projects = filtered_projects
     when "time_entries"
       @time_entries = filtered_time_entries
-      @projects = current_user.projects
+      @projects = filtered_projects
       @tasks = filtered_tasks
     when "tasks"
-      @projects = current_user.projects
+      @projects = filtered_projects
       @tasks = filtered_tasks
     else
       @time_entries = TimeEntry.includes(task: :project).all
@@ -34,31 +34,17 @@ class HomeController < ApplicationController
   end
 
 
-
   private
 
-  def current_user_projects
-    current_user.projects
-  end
-
-  def current_user_tasks
-    scope = current_user.tasks
-    scope = scope.where(project_id: @project_id) if @project_id.present?
+  def filtered_projects
+    scope = current_user.projects
     scope = scope.order(@sort) if @sort.present?
-    scope
-  end
-
-  def current_user_time_entries
-    scope = current_user.time_entries.includes(:task)
-    scope = scope.where(task_id: @task_id) if @task_id.present?
-    scope = scope.joins(:task).where(tasks: { project_id: @project_id }) if @project_id.present?
-    scope = scope.sort_by { |e| e.end_time - e.start_time } if @sort == "duration"
     scope
   end
 
   # Filter tasks based on project_id, sort, and other params
   def filtered_tasks
-    scope = current_user.tasks
+    scope = current_user.tasks.distinct
     scope = scope.where(project_id: @project_id) if @project_id.present?
     scope = scope.order(@sort) if @sort.present?
     scope
@@ -66,10 +52,16 @@ class HomeController < ApplicationController
 
   # Filter time entries based on task_id, project_id, and other params
   def filtered_time_entries
-    scope = current_user.time_entries.includes(:task)
+    scope = current_user.time_entries.includes(task: :project)
     scope = scope.where(task_id: @task_id) if @task_id.present?
     scope = scope.joins(:task).where(tasks: { project_id: @project_id }) if @project_id.present?
-    scope = scope.order("end_time - start_time") if @sort == "duration"
+
+    if @sort == "duration"
+      scope = scope.sort_by { |entry| entry.end_time - entry.start_time }
+    else
+      scope = scope.order(@sort) if @sort.present?
+    end
+
     scope
   end
 end
