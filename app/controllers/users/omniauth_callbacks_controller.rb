@@ -16,13 +16,17 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def discord
-    # @user = User.from_omniauth(request.env["omniauth.auth"])
-    # @origin = request.env["omniauth.origin"]
-    # puts @user
+    # store the hash we got from current auth
+    current_hash = request.env["omniauth.auth"]
 
-    @user = User.from_omniauth(request.env["omniauth.auth"])
+    # convert that hash into a user (making one if it's new)
+    @user = User.from_omniauth(current_hash)
 
+    # check if user already exists
     if @user.persisted?
+      # if so we update the saved_hash with current
+      @user.update_omniauth_hashes(current_hash)
+
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Discord"
       sign_in_and_redirect @user, event: :authentication
     else

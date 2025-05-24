@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :time_entries, dependent: :destroy
   has_many :tasks, through: :projects
 
-  # app/models/user.rb
+
   def self.from_omniauth(access_token)
       data = access_token.info
       user = User.where(email: data["email"]).first
@@ -21,5 +21,12 @@ class User < ApplicationRecord
           )
       end
       user
+  end
+
+  # handles updating stored omniAuth data
+  def update_omniauth_hashes(auth_hash)
+    self.last_omniauth_data = self.last_omniauth_data || auth_hash.to_h
+    self.current_omniauth_data = auth_hash.to_h
+    save(validate: false)  # SKIPS VALIDATION
   end
 end

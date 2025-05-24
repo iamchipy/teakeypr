@@ -1,4 +1,4 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
+# db/seeds.rb
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
@@ -15,9 +15,9 @@ puts "Seeding data..."
 
 # Create Users
 user = User.find_or_create_by!(email: "hire@johndavidbasson.com") do |u|
-  u.password = "shine*arun2major5HARDY"
-  u.password_confirmation = "shine*arun2major5HARDY"
-  u.name = "John Basson" # Optionally assign name if you want it
+  u.password = "FREDDY5fee4mats-gray"
+  u.password_confirmation = "FREDDY5fee4mats-gray"
+  u.name = "Testing User" # Optionally assign name if you want it
 end
 
 # Create Projects
