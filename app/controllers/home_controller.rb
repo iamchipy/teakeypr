@@ -40,7 +40,7 @@ class HomeController < ApplicationController
   end
 
   def current_user_tasks
-    scope = current_user.tasks.includes(:project)
+    scope = current_user.tasks
     scope = scope.where(project_id: @project_id) if @project_id.present?
     scope = scope.order(@sort) if @sort.present?
     scope
@@ -56,7 +56,7 @@ class HomeController < ApplicationController
 
   # Filter tasks based on project_id, sort, and other params
   def filtered_tasks
-    scope = current_user.tasks.includes(:project)
+    scope = current_user.tasks
     scope = scope.where(project_id: @project_id) if @project_id.present?
     scope = scope.order(@sort) if @sort.present?
     scope
