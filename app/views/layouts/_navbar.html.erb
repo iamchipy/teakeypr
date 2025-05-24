@@ -11,4 +11,7 @@
   <% else %>
      <%= link_to "Login", new_user_session_path, class: "nav-float-right" %>
   <% end %>
+
+<%= link_to "w/Google", user_google_oauth2_omniauth_authorize_path, method: :post %>
+  
 </nav>

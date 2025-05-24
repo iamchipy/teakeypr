@@ -2,6 +2,11 @@ source "https://rubygems.org"
 
 # Project Gems Added By Chipy
 gem "devise"      # For user authentication
+gem "omniauth"
+gem "omniauth-rails_csrf_protection"
+gem "omniauth-discord"
+gem "omniauth-google-oauth2"
+
 gem "chartkick"   # For visual reports
 gem "groupdate"   # For date grouping in reports
 gem "pg", "~> 1.1" # Check for the latest version on RubyGems

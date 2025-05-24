@@ -11,7 +11,7 @@ class TimeEntriesController < ApplicationController
 
   # GET /time_entries/1 or /time_entries/1.json
   def show
-    @time_entry = TimeEntry.includes(:user, task: :project ).find(params[:id])
+    @time_entry = TimeEntry.includes(:user, task: :project).find(params[:id])
   end
 
   # GET /time_entries/new
