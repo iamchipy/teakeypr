@@ -24,19 +24,24 @@
         Tasks: <%= project.tasks.count %>
       </li>
     <% end %>
-  <% end %>  
-<%# </ul> %>
-<%# <ul> %>
+  <% end %> 
 
-<% time_entries.each do |entry| %>
+  <% time_entries&.each do |entry| %>
     <%= link_to time_entry_path(entry), class: "time_entry-list-item-link" do %>
-    <li>
+      <li>
         Task: <%= entry.task&.name || 'Unassigned' %> |
         Start: <%= entry.start_time %> |
         End: <%= entry.end_time %> |
         Duration: <%= distance_of_time_in_words(entry.start_time, entry.end_time) %>
-    </li>
+      </li>
     <% end %>
-
   <% end %>
+
 </ul>
+
+
+
+
+
+
+

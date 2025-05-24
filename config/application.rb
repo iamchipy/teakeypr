@@ -1,3 +1,5 @@
+# config/application.rb
+
 require_relative "boot"
 
 require "rails/all"
@@ -8,6 +10,9 @@ Bundler.require(*Rails.groups)
 
 module Teakeypr
   class Application < Rails::Application
+    # For helping Propshaft (used in DEV) to see assets/images
+    config.assets.paths << Rails.root.join("app/assets/images")
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
 

@@ -1,37 +1,6 @@
-# frozen_string_literal: true
 
-# Assuming you have not yet modified this file, each configuration option below
-# is set to its default value. Note that some are commented out while others
-# are not: uncommented lines are intended to protect your configuration from
-# breaking changes in upgrades (i.e., in the event that future versions of
-# Devise change the default values for those options).
-#
-# Use this hook to configure devise mailer, warden hooks and so forth.
-# Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-  # The secret key used by Devise. Devise uses this key to generate
-  # random tokens. Changing this key will render invalid all existing
-  # confirmation, reset password and unlock tokens in the database.
-  # Devise will use the `secret_key_base` as its `secret_key`
-  # by default. You can change it below and use your own secret key.
-  # config.secret_key = '13513cf3568ef8b809d7aa1e5bf72b28eebfde1e4315e74c5ab5ab17b5d7ccad3fd6ac38c0ca85e535284535493e35b2e3dcb8ec87eb4fb3e92906f1eabd30bb'
-
-  # ==> Controller configuration
-  # Configure the parent class to the devise controllers.
-  # config.parent_controller = 'DeviseController'
-
-  # ==> Mailer Configuration
-  # Configure the e-mail address which will be shown in Devise::Mailer,
-  # note that it will be overwritten if you use your own mailer class
-  # with default "from" parameter.
-  config.mailer_sender = "admin@johndavidbasson.com"
-
-  # Configure the class responsible to send e-mails.
-  # config.mailer = 'Devise::Mailer'
-
-  # Configure the parent class responsible to send e-mails.
-  # config.parent_mailer = 'ActionMailer::Base'
-
+  config.mailer_sender = "tka@johndavidbasson.com"
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
@@ -271,7 +240,23 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  # config.omniauth :github, "APP_ID", "APP_SECRET", scope: "user, public_repo"
+  #
+  config.omniauth :google_oauth2,
+    Rails.application.credentials.dig(:oauth2, :google_id),
+    Rails.application.credentials.dig(:oauth2, :google_secret),
+      # {
+      #   include_granted_scopes: true,
+      scope: "email, profile, offline"
+  # }
+  config.omniauth :discord, Rails.application.credentials.dig(:oauth2, :discord_id), Rails.application.credentials.dig(:oauth2, :discord_secret), scope: "email identify", callback_url: "http://localhost:3000/users/auth/discord/callback"
+
+  # Forcing on the methods to allow POST as an auth portocol without needing to
+  # create an intitializer for OmniAuth
+  # config/initializers/omniauth.rb
+  OmniAuth.config.allowed_request_methods = [ :get, :post ]
+  OmniAuth.config.silence_get_warning = true
+
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
@@ -294,7 +279,7 @@ Devise.setup do |config|
   #
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
-  # config.omniauth_path_prefix = '/my_engine/users/auth'
+  # config.omniauth_path_prefix = "/users/oauth2"
 
   # ==> Hotwire/Turbo configuration
   # When using Devise with Hotwire/Turbo, the http status for error responses

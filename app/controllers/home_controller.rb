@@ -3,12 +3,12 @@ class HomeController < ApplicationController
 
   def index
     # helps set default tab for redirects
-    if params[:tab].blank?
-      redirect_to root_path(tab: "time_entries") and return
-    end
+    # if params[:tab].blank?
+    #   redirect_to root_path(tab: "time_entries") and return
+    # end
 
     # Fetch parameters or set defaults
-    @tab = params[:tab] || "time_entries"
+    @tab = params[:tab].presence || "time_entries"
     @sort = params[:sort] || "created_at"
     @project_id = params[:project_id]
     @task_id = params[:task_id]
@@ -25,7 +25,7 @@ class HomeController < ApplicationController
       @projects = current_user.projects
       @tasks = filtered_tasks
     else
-      @time_entries = TimeEntry.includes(:task, :project).all
+      @time_entries = TimeEntry.includes(task: :project).all
       @projects = Project.all
       @tasks = Task.all
     end

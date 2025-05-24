@@ -1,0 +1,12 @@
+{
+    //REQUIRES https://github.com/emeraldwalk/vscode-runonsave
+    "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "match": "\\.html\\.erb$", // regex to match file extension
+                "isAsync": true,
+                "cmd": "ruby bin/erb_commenter.rb ${file}" // run your script on save
+            }
+        ]
+    }
+}

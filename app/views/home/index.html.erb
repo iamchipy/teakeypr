@@ -10,7 +10,7 @@
   <% when 'time_entries' %>
     <%= render 'reports/time_entries', time_entries: @time_entries %>
   <% when 'all' %>
-    <%= render 'reports/all',tasks: @tasks, time_entries: @time_entries,projects: @projects  %>, 
+    <%= render 'reports/all',tasks: @tasks, time_entries: @time_entries, projects: @projects  %>
   <% else %>
     <%= render 'reports/tasks', tasks: @tasks %>
   <% end %>
