@@ -18,6 +18,13 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
+    <!--Altered for the to work with `rails assets:precomile` correctly -->
+    <link rel="icon" type="image/png" href="<%= asset_path 'icon.png' %>">
+    <link rel="icon" type="image/svg+xml" href="<%= asset_path 'icon.svg' %>">
+    <link rel="shortcut icon" href="<%= asset_path 'favicon.ico' %>">
+    
+
+
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>

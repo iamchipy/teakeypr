@@ -23,5 +23,8 @@ module Teakeypr
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # For helping Propshaft (used in DEV) to see assets/images
+    config.assets.paths << Rails.root.join("app/assets/images")
   end
 end
