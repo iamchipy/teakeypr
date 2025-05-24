@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    
+
     <title><%= content_for(:title) || "Teakeypr" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -18,7 +18,10 @@
     <!--Altered for the to work with `rails assets:precomile` correctly -->
     <link rel="icon" type="image/png" href="<%= asset_path 'icon.png' %>">
     <link rel="icon" type="image/svg+xml" href="<%= asset_path 'icon.svg' %>">
-    <link rel="shortcut icon" href="<%= asset_path 'favicon.ico' %>">  
+    <%= favicon_link_tag 'favicon.ico' %>
+
+
+    
 
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
