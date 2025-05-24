@@ -1,7 +1,7 @@
 <%# app/views/reports/_sort_buttons.html.erb %>
 <div class="sort-buttons">
   Sort by:
-  <%= link_to 'Created At', root_path(tab: params[:tab], sort: 'created_at') %> |
-  <%= link_to 'Deadline', root_path(tab: params[:tab], sort: 'deadline') if params[:tab] == 'tasks' %> |
+  <%= link_to 'Created At', root_path(tab: params[:tab], sort: 'created_at') %> 
+  <%= link_to 'Deadline', root_path(tab: params[:tab], sort: 'deadline') if params[:tab] == 'tasks' %> 
   <%= link_to 'Duration', root_path(tab: params[:tab], sort: 'duration') if params[:tab] == 'time_entries' %>
 </div>

@@ -1,13 +1,14 @@
 <nav>
-  <%= link_to "Home", root_path %> |
-  <%= link_to "Entries", time_entries_path %> |
-  <%= link_to "Tasks", tasks_path %> |
-  <%= link_to "Projects", projects_path %> |
-  <%= link_to "Log Time", new_time_entry_path %>
+<%= nav_link_to "Home", root_path, "home" %>
+<%= nav_link_to "Entries", time_entries_path, "time_entries" %>
+<%= nav_link_to "Tasks", tasks_path, "tasks" %>
+<%= nav_link_to "Projects", projects_path, "projects" %>
+<%= nav_link_to "Log Time", new_time_entry_path, "time_entries" %>
+
 
   <% if user_signed_in? %>
-    | <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+     <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "nav-float-right"  %>
   <% else %>
-    | <%= link_to "Login", new_user_session_path %>
+     <%= link_to "Login", new_user_session_path, class: "nav-float-right" %>
   <% end %>
 </nav>

@@ -25,7 +25,7 @@ class HomeController < ApplicationController
       @projects = current_user.projects
       @tasks = filtered_tasks
     else
-      @time_entries = TimeEntry.includes(:task, :project).all
+      @time_entries = TimeEntry.includes(task: :project).all
       @projects = Project.all
       @tasks = Task.all
     end

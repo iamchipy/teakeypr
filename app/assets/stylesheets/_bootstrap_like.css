@@ -1,45 +1,68 @@
+:root {
+  --bg-c1: #212121;        /* Overall page background */
+  --bg-c2: #171717;                /* Used for backgrounds of forms, cards, etc. */
+  --bg-btn: #303030;           /* Tabs and button group backgrounds */
+  --bg-btn-hover: #252525;         /* List hover backgrounds */
+  --gen-border: #424242;                 /* Borders */
+  --input-hover: #5a5a5a;          /* Optional: hover states or subtle dividers */
+  --txt-c1: #F3F3F3;                 /* Primary readable text */
+  --txt-c2: #adb5bd;            /* Secondary text */
+  --bg-nav: #303030;              /* Navbar background */
+  --bg-nav-hover: #505050;              /* Navbar hover */
+  --color-primary: #952828;              /* Buttons, links */
+  --color-primary-hover: #a52121;        /* Button hover */
+  --color-primary-active: #a52121;       /* Active tab/link */
+  --color-secondary: #4f4f4f;            /* Devise links */
+  --color-secondary-hover: #616161;      /* Devise links hover */
+  --color-danger: #e63946;               /* Danger button */
+  --color-danger-hover: #d62828;         /* Danger hover */
+  --color-success-bg: #1e3d32;           /* Notice background */
+  --color-success-text: #63e6be;         /* Notice text */
+  --color-alert-bg: #411c1c;             /* Alert background */
+  --color-alert-text: #ff6b6b;           /* Alert text */
+}
+/* 
+backup
+   --color-primary: #86b3ca;
+} */
+
+
 /* ================================
    General Layout & Base Styles
 ================================== */
 body {
   font-family: system-ui, sans-serif;
   margin: 2rem;
-  background-color: #f8f9fa;
-  color: #212529;
+  background-color: var(--bg-c1);
+  color: var(--txt-c1);
 }
 
-/* Headings */
 h1, h2, h3 {
   margin-bottom: 1rem;
 }
 
-h1 { /* Specific styles for main page titles */
+h1 {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
-  color: #212529;
+  color: var(--txt-c1);
 }
 
-/* Horizontal lines */
 hr {
   border: none;
-  border-top: 1px solid #dee2e6;
+  border-top: 1px solid var(--gen-border);
   margin: 1rem 0;
 }
 
-/* Paragraph labels (general) */
 p strong {
   display: inline-block;
-  width: 150px; /* Default width for labels */
+  width: 150px;
   font-weight: 600;
 }
 
-/* ================================
-   Form Elements
-================================== */
 form {
-  background: #fff;
-  border: 1px solid #dee2e6;
+  background: var(--bg-c2);
+  border: 1px solid var(--gen-border);
   padding: 1.5rem;
   border-radius: 0.5rem;
   margin-bottom: 2rem;
@@ -49,20 +72,34 @@ form div {
   margin-bottom: 1rem;
 }
 
+form div:has(input[type="checkbox"]) {
+  display: inline-flex;
+}
+
+form div:has(input[type="checkbox"]) label {
+  white-space: nowrap;
+  margin-left: 1rem;
+}
+
+form div input[type="checkbox" i] {
+  display: block;
+}
+
+
+input:not([type="image" i]),
+input[type="datetime-local" i],
 input[type="text"],
 textarea,
 select {
   width: 100%;
   padding: 0.5rem;
-  border: 1px solid #ced4da;
+  border: 1px solid var(--gen-border);
   border-radius: 0.375rem;
-  background-color: #fff;
+  background-color: var(--bg-c2);
+  color: var(--txt-c2);
+  box-sizing: border-box; /* Ensure padding/borders don't exceed parent */
 }
 
-/* ================================
-   General Button Styles
-   (applies to all regular buttons/links unless more specific rules override)
-================================== */
 button,
 input[type="submit"],
 .form-button,
@@ -70,17 +107,17 @@ a.button-link,
 a.btn,
 a[href*="time_entry"],
 a.btn-link {
-  background-color: #0d6efd;
-  color: white !important; /* !important to override default link color */
+  background-color: var(--color-primary);
+  color: var(--bg-c2) !important;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
   cursor: pointer;
   font-size: 1rem;
-  text-decoration: none; /* Ensure no underline for button-like links */
+  text-decoration: none;
   font-weight: 500;
   transition: background-color 0.2s ease-in-out;
-  display: inline-block; /* For consistency with button-like links */
+  display: inline-block;
 }
 
 button:hover,
@@ -90,185 +127,175 @@ a.button-link:hover,
 a.btn:hover,
 a[href*="time_entry"]:hover,
 a.btn-link:hover {
-  background-color: #0b5ed7;
-  text-decoration: none; /* Ensure no underline on hover */
+  background-color: var(--color-primary-hover);
+  text-decoration: none;
 }
 
-/* Danger Button Style (e.g., for Destroy actions) */
 .btn-danger {
-  background-color: #dc3545;
+  background-color: var(--color-danger);
 }
 
 .btn-danger:hover {
-  background-color: #c82333;
+  background-color: var(--color-danger-hover);
 }
 
-/* ================================
-   List Styling (general)
-================================== */
 ul {
-  list-style: none; /* Remove default bullet points */
-  padding: 0;      /* Remove default left padding */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03); /* Subtle shadow for list containers */
+  list-style: none;
+  padding: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
 }
 
 li {
-  margin-bottom: 0.25rem; /* General spacing between list items */
+  margin-bottom: 0.25rem;
 }
 
-ul li { /* Styling for list items within <ul> (e.g., on index pages) */
-  background-color: #ffffff;
-  border: 1px solid #dee2e6;
+ul li {
+  background-color: var(--bg-c2);
+  border: 1px solid var(--gen-border);
   border-radius: 0.5rem;
   padding: .5rem;
   margin: .5rem;
 }
 
-ul li strong { /* Labels within list items */
+ul li strong {
   display: inline-block;
-  width: 100px; /* Specific width for labels in lists */
+  width: 100px;
   font-weight: 600;
-  color: #495057;
+  color: var(--txt-c2);
 }
 
-/* ================================
-   Notification & Flash Messages
-================================== */
 .notice,
 .notice-message,
-p[style*="color: green"] { /* Targets Rails flash notices and inline success messages */
-  background-color: #d1e7dd;
-  color: #0f5132 !important; /* !important to ensure color overrides inline styles */
+p[style*="color: green"] {
+  background-color: var(--color-success-bg);
+  color: var(--color-success-text) !important;
   padding: 0.75rem 1rem;
-  border-left: 5px solid #0f5132;
+  border-left: 5px solid var(--color-success-text);
   border-radius: 0.375rem;
   margin-bottom: 1rem;
 }
 
 .alert-message,
-.alert { /* Rails flash alerts */
-  background-color: #f8d7da;
-  color: #842029;
+.alert {
+  background-color: var(--color-alert-bg);
+  color: var(--color-alert-text);
   padding: 0.75rem 1rem;
-  border-left: 5px solid #842029;
+  border-left: 5px solid var(--color-alert-text);
   border-radius: 0.375rem;
   margin-bottom: 1rem;
 }
 
-/* ================================
-   Card-like Containers (for individual resource views)
-================================== */
 div[id^="task_"],
 div[id^="project_"],
 div[id^="time_entry_"] {
-  background-color: #fff;
-  border: 1px solid #dee2e6;
+  background-color: var(--bg-c2);
+  border: 1px solid var(--gen-border);
   padding: 1rem;
   border-radius: 0.5rem;
   margin-bottom: 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-div[id^="time_entry_"] p { /* Specific styling for paragraphs inside time entry cards */
+div[id^="time_entry_"] p {
   margin-bottom: 0.5rem;
 }
 
-div[id^="time_entry_"] p strong { /* Specific label styling for time entry card details */
+div[id^="time_entry_"] p strong {
   display: inline-block;
-  width: 130px; /* Specific width for time entry labels */
+  width: 130px;
   font-weight: 600;
-  color: #495057;
+  color: var(--txt-c2);
 }
 
-/* ================================
-   Navbar Styles
-================================== */
 nav {
-  background-color: #343a40;
+  background-color: var(--bg-nav);
   padding: 0.75rem 1rem;
   border-radius: 0.375rem;
   margin-bottom: 2rem;
   display: flex;
-  gap: 1rem;
+  gap: .2rem;
   flex-wrap: wrap;
 }
 
 nav a {
-  color: #ffffff;
+  color: var(--txt-c1);
   text-decoration: none;
-  font-weight: 500;
-  padding: 0.3rem 0.6rem;
-  transition: background-color 0.2s ease-in-out;
+  font-weight: 700;
+  font-size: 1.1em;
+  padding: 0.5rem 0.8rem;
+  transition: background-color 0.4s ease-in-out;
   border-radius: 0.25rem;
+  
+  display: flex;
+  flex-wrap: wrap;
 }
 
 nav a:hover {
-  background-color: #495057;
+  background-color: var(--bg-nav-hover);
 }
 
-/* ================================
-   Button Group Container & Its Buttons
-================================== */
+nav a.active {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.nav-float-right {
+  margin-left: auto;
+}
+
 .button-group {
-  display: inline-flex; /* Makes buttons appear inline */
-  border: 1px solid #dee2e6; /* Adds a border around the whole group */
-  border-radius: 0.375rem; /* Rounded corners for the group */
-  padding: 0.25rem; /* Adds some padding inside the group */
-  background-color: #fff; /* Background color for the button group */
-  gap: 1rem; /* Spacing between the buttons */
+  display: inline-flex;
+  border: 1px solid var(--gen-border);
+  border-radius: 0.375rem;
+  padding: 0.25rem;
+  background-color: var(--bg-c2);
+  gap: 1rem;
   margin-top: 1rem;
   margin-bottom: 1.5rem;
 }
 
 .button-group form {
-  margin: 0; /* Removes margins from forms so the buttons align properly */
+  margin: 0;
 }
 
-/* Individual Button Styling for .button-group (consistent solid blue look) */
 .devise-link,
 .button-group button,
 .button-group .btn-link {
-  background-color: #0d6efd; /* Solid background for all buttons */
-  color: white !important; /* White text color */
-  padding: 0.5rem 1rem; /* Padding for button size */
-  border-radius: 0.375rem; /* Rounded corners */
-  text-decoration: none; /* No underline */
-  font-weight: 500; /* Standard font weight */
+  background-color: var(--color-primary);
+  color: var(--bg-c2) !important;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  text-decoration: none;
+  font-weight: 500;
   transition: background-color 0.2s ease-in-out;
-  border: none; /* Remove any border around individual buttons */
-  display: inline-block; /* Ensure they behave like block elements for sizing */
+  border: none;
+  display: inline-block;
 }
-
 
 .button-group button:hover,
 .button-group .btn-link:hover {
-  background-color: #0b5ed7; /* Darker background on hover */
+  background-color: var(--color-primary-hover);
 }
 
 .devise-link {
-  background-color: #2197ba;
+  background-color: var(--color-secondary);
   margin: .2rem;
-  padding: 0.4rem 0.7rem; 
+  padding: 0.4rem 0.7rem;
 }
 
-.devise-link:hover{
-  background-color: #00c3ff; /* Darker background on hover */
+.devise-link:hover {
+  background-color: var(--color-secondary-hover);
 }
 
-
-/* Danger Button (for Destroy action) within a button group */
 .button-group .btn-danger {
-  background-color: #dc3545; /* Red background for danger button */
-  color: white !important;
+  background-color: var(--color-danger);
+  color: var(--bg-c2) !important;
 }
 
 .button-group .btn-danger:hover {
-  background-color: #c82333; /* Darker red for danger button on hover */
+  background-color: var(--color-danger-hover);
 }
 
-/* ================================
-   Specific List Button Groups (e.g., on index pages)
-================================== */
 .task-button-group {
   display: flex;
   flex-wrap: wrap;
@@ -279,49 +306,43 @@ nav a:hover {
 
 ul.task-button-group,
 ul.time_entry-button-group,
-ul.user-button-group { /* Specific list styles for button groups acting as lists */
+ul.user-button-group {
   list-style-type: none;
   padding-left: 0;
   margin: 0;
   display: flow-root;
   flex-wrap: wrap;
-  gap: 0.5rem; /* Spacing between li items acting as buttons */
+  gap: 0.5rem;
 }
 
 ul.time_entry-button-group li,
 ul.user-button-group li,
 ul.task-button-group li {
-  margin: auto; /* Centers items if there's extra space */
-  display: inline-flex; /* Allows internal content to flex */
-  box-shadow: none; /* Remove shadow from individual list items in these groups */
+  margin: auto;
+  display: inline-flex;
+  box-shadow: none;
 }
 
 .task-button {
   flex-shrink: 0;
 }
 
-/* ================================
-   Clickable List Item Wrapper Links
-================================== */
 a.time_entry-list-item-link,
 a.project-list-item-link,
 a.task-list-item-link {
-  display: block; /* Makes the entire list item clickable */
+  display: block;
   text-decoration: none;
-  color: inherit; /* Inherit color from parent */
+  color: inherit;
 }
 
 a.time_entry-list-item-link:hover li,
 a.project-list-item-link:hover li,
 a.task-list-item-link:hover li {
-  background-color: #f1f3f5;
+  background-color: var(--bg-btn-hover);
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
 }
 
-/* ================================
-   Tab Navigation Styling
-================================== */
 .tabs {
   display: flex;
   gap: 0.5rem;
@@ -331,9 +352,9 @@ a.task-list-item-link:hover li {
 
 .tabs a {
   padding: 0.5rem 1rem;
-  background-color: #e9ecef;
-  color: #212529;
-  border: 1px solid #dee2e6;
+  background-color: var(--bg-btn);
+  color: var(--txt-c1);
+  border: 1px solid var(--gen-border);
   border-radius: 0.375rem;
   text-decoration: none;
   font-weight: 500;
@@ -341,26 +362,23 @@ a.task-list-item-link:hover li {
 }
 
 .tabs a:hover {
-  background-color: #dee2e6;
+  background-color: var(--gen-border);
 }
 
 .tabs a.active {
-  background-color: #0d6efd;
-  color: #ffffff;
-  border-color: #0d6efd;
+  background-color: var(--color-primary);
+  color: var(--bg-c2);
+  border-color: var(--color-primary);
 }
 
-/* ================================
-   Sort Buttons Styling
-================================== */
 .sort-buttons {
   margin-bottom: 1rem;
   font-size: 0.95rem;
-  color: #495057;
+  color: var(--txt-c2);
 }
 
 .sort-buttons a {
-  color: #0d6efd;
+  color: var(--color-primary);
   text-decoration: none;
   font-weight: 500;
   margin-left: 0.5rem;
@@ -369,18 +387,15 @@ a.task-list-item-link:hover li {
 
 .sort-buttons a:hover {
   text-decoration: underline;
-  color: #0b5ed7;
+  color: var(--color-primary-hover);
 }
 
 .sort-buttons a.active {
   font-weight: 700;
-  color: #0a58ca;
+  color: var(--color-primary-active);
   text-decoration: underline;
 }
 
-/* ================================
-   Inline Clear Form
-================================== */
 .inline-clear-form {
   display: inline-block;
   margin-left: 1rem;
@@ -388,7 +403,7 @@ a.task-list-item-link:hover li {
 
 .inline-clear-form button {
   background: transparent;
-  color: #0d6efd;
+  color: var(--color-primary);
   border: none;
   cursor: pointer;
   padding: 0.25rem 0.5rem;
@@ -397,5 +412,5 @@ a.task-list-item-link:hover li {
 }
 
 .inline-clear-form button:hover {
-  color: #0b5ed7;
+  color: var(--color-primary-hover);
 }
