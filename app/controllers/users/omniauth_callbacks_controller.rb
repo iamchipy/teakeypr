@@ -17,6 +17,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def discord
     @user = User.from_omniauth(request.env["omniauth.auth"])
+    @origin = request.env["omniauth.origin"]
     puts @user
   end
 end

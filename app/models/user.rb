@@ -1,8 +1,9 @@
 # app/models/user.rb
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :trackable,
-         :omniauthable, omniauth_providers: %i[google_oauth2 discord]
+         :recoverable, :rememberable, :validatable, :trackable
+  devise :omniauthable, omniauth_providers: %i[google_oauth2 discord]
+
   has_and_belongs_to_many :projects
   has_and_belongs_to_many :tasks
   has_many :time_entries, dependent: :destroy
