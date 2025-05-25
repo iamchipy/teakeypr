@@ -11,9 +11,10 @@
     <%= render 'reports/time_entries', time_entries: @time_entries %>
   <% when 'all' %>
     <%= render 'reports/all',tasks: @tasks, time_entries: @time_entries, projects: @projects  %>
-  <% else %>
+  <% when 'tasks' %>
     <%= render 'reports/tasks', tasks: @tasks %>
+  <% else %>
+    <!--TODO need to have a catch page 404 maybe, this should never happen-->
+    <%= render 'reports/all',tasks: @tasks, time_entries: @time_entries, projects: @projects  %>
   <% end %>
-
-  
 </div>

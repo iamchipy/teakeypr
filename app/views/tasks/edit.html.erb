@@ -1,3 +1,4 @@
+<%# app/views/tasks/edit.html.erb %>
 <% content_for :title, "Editing task" %>
 
 <h1>Editing task</h1>
@@ -7,6 +8,6 @@
 <br>
 
 <div>
-  <%= link_to "View", @task %> |
-  <%= link_to "Back to tasks", tasks_path %>
+  <%= link_to "View", @task, class: "btn-link" %> |
+  <%= link_to "Back to tasks", tasks_path , class: "btn-link"%>
 </div>

@@ -1,7 +1,9 @@
+# app/controllers/time_entries_controller.rb
 class TimeEntriesController < ApplicationController
   before_action :set_time_entry, only: %i[ show edit update destroy ]
   before_action :authorize_user!, only: %i[show edit update destroy]  # redirects defensively
   before_action :authenticate_user!
+
 
   # GET /time_entries or /time_entries.json
   def index
@@ -68,6 +70,8 @@ class TimeEntriesController < ApplicationController
     def set_time_entry
       @time_entry = TimeEntry.find(params.expect(:id))
     end
+
+
 
     # Only allow a list of trusted parameters through.
     def time_entry_params
