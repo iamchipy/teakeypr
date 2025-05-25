@@ -10,6 +10,8 @@
   /* List hover backgrounds */
   --gen-border: #424242;
   /* Borders */
+  --input-selected: #424242;
+  /* Optional: hover states or subtle dividers */
   --input-hover: #5a5a5a;
   /* Optional: hover states or subtle dividers */
   --txt-c1: #F3F3F3;
@@ -110,7 +112,6 @@ form div input[type="checkbox" i] {
   display: block;
 }
 
-
 input:not([type="image" i]),
 input[type="datetime-local" i],
 input[type="text"],
@@ -134,7 +135,7 @@ a.btn,
 a[href*="time_entry"],
 a.btn-link {
   background-color: var(--color-primary);
-  color: var(--bg-c2) !important;
+  color: var(--bg-c2);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
@@ -472,4 +473,49 @@ a.task-list-item-link:hover li {
 
 .inline-clear-form button:hover {
   color: var(--color-primary-hover);
+}
+
+/* Select2 SEARCH SELECTED */
+.select2-container--default .select2-selection--multiple {
+  background-color: var(--bg-c2);
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  color: var(--color-primary);
+  background-color: var(--bg-c1);
+
+}
+
+.select2-container--default .select2-selection--multiple button.select2-selection__choice__remove,
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove span {
+  background-color: none;
+  border-right: none;
+  color: var(--color-danger);
+  margin: .1rem;
+}
+
+.select2-container--default .select2-selection--multiple button.select2-selection__choice__remove:hover,
+.select2-container--default .select2-selection--multiple button.select2-selection__choice__remove:hover span {
+  color: var(--bg-c2);
+  background-color: var(--color-danger);
+}
+
+/* Select2 SEARCH RESULTS */
+.select2-dropdown {
+  background-color: var(--bg-c2);
+  border: 1px solid var(--gen-border);
+  border-radius: 0.375rem;
+}
+
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+  background-color: var(--bg-c2);
+}
+
+.select2-container--default .select2-results__option--selected {
+  background-color: var(--input-selected);
+}
+
+.select2-container--default .select2-results__option--selected:hover,
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable:hover {
+  background-color: var(--input-hover);
 }
