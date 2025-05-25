@@ -7,7 +7,6 @@ export default class extends Controller {
     static values = {
         url: String,
         preselectedIds: String
-
     }
     connect() {
         const url = this.urlValue;                     // Automatically provided by Stimulus
@@ -15,7 +14,6 @@ export default class extends Controller {
 
         console.log("🟢 Select2 controller connected");
         console.log(`Select2 detected url: ${url}`);
-
 
         $(this.element).select2({
             ajax: {

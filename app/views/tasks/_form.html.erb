@@ -38,22 +38,28 @@
 
   <div>
     <%= form.label :user_ids, "Assign Users" %><br>
-    <%= form.select :user_ids,
-      options_from_collection_for_select(User.all, :id, :email, task.user_ids),
+    <%= form.select :user_ids, 
+      options_from_collection_for_select(User.all, :id, :name, task.user_ids),
       {}, # no options here
-      multiple: true,
-      class: "user-select",
-      data: { placeholder: "Select users to assign" } %>
+      {
+        multiple: true,
+        class: "user-select",
+        data: { 
+          placeholder: "Select users to assign",
+          controller: "select2", 
+          "select2-url-value" => search_users_path,
+          "select2-preselected-ids-value" => task.user_ids.join(",")
+        },
+      } 
+    %>
   </div>
-
-
 
  
   <div>
     <%= form.label :time_entry_ids, "Search Time Entries" %><br>
     <%= form.select :time_entry_ids, 
       options_from_collection_for_select(TimeEntry.where(id: task.time_entry_ids), :id, :name, task.time_entry_ids),
-      {},
+      {}, # no options here
       {
         multiple: true,
         class: "time-entry-select",
@@ -62,16 +68,8 @@
           "select2-url-value" => search_time_entries_path,
           "select2-preselected-ids-value" => task.time_entry_ids.join(",")  # Pass preselected ones
         },
-         
       } %>
   </div>
-
-
-
-
-
-
-
 
   <div>
     <%= form.label :completed, style: "display: block" %>

@@ -65,25 +65,6 @@ class TimeEntriesController < ApplicationController
     end
   end
 
-  # def search
-  #   query = params[:q].to_s.downcase
-  #   entries = TimeEntry.where("LOWER(name) LIKE ?", "%#{query}%").limit(20)
-  #   render json: entries.map { |e| { id: e.id, name: e.name, duration: e.duration.to_i } }
-  # end
-
-  # def search
-  #   term = params[:q]
-  #   exclude_ids = params[:exclude_ids].presence || []
-
-  #   results = TimeEntry
-  #     .where.not(id: exclude_ids)
-  #     .where("name ILIKE ?", "%#{term}%")
-  #     .limit(20)
-
-  #   render json: results.select(:id, :name)
-  # end
-
-
   def search
     term = params[:q].to_s.strip
 
@@ -92,8 +73,7 @@ class TimeEntriesController < ApplicationController
     exclude_ids = exclude_ids_raw.is_a?(Array) ? exclude_ids_raw.map(&:to_i) : exclude_ids_raw.to_s.split(",").map(&:to_i)
 
     # just for debug and tracking
-    Rails.logger.debug "Search term: '#{term}'"
-    Rails.logger.debug "Exclude IDs: #{exclude_ids.inspect}"
+    Rails.logger.debug "Time Entry Search: '#{term}' Exclude(#{exclude_ids.inspect})"
 
     time_entries = TimeEntry.where.not(id: exclude_ids)
     time_entries = time_entries.where("name ILIKE ?", "%#{term}%") if term.present?

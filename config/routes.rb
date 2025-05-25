@@ -26,6 +26,12 @@ Rails.application.routes.draw do
     end
   end
 
+  # stack to define custom endpoint "GET /search"
+  resources :users, only: [] do
+    collection do
+      get :search
+    end
+  end
 
   # Optional report route
   get "report", to: "time_entries#report"
