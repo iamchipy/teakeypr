@@ -1,9 +1,9 @@
 # app/models/project.rb
 class Project < ApplicationRecord
   has_and_belongs_to_many :users
-  has_many :tasks   # taking out to fix project auto removing , dependent: :destroy
+  has_many :tasks, dependent: :restrict_with_error
 
-  accepts_nested_attributes_for :tasks, allow_destroy: true
+  accepts_nested_attributes_for :tasks # NOT USED  , allow_destroy: true
 
   validates :name, presence: true
 
