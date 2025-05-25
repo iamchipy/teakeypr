@@ -44,7 +44,11 @@
   /* Alert background */
   --color-alert-text: #ff6b6b;
   /* Alert text */
+
+  --fonts-sans: system-ui, sans-serif;
+
 }
+
 
 /* 
 backup
@@ -56,7 +60,7 @@ backup
    General Layout & Base Styles
 ================================== */
 body {
-  font-family: system-ui, sans-serif;
+  font-family: var(--fonts-sans);
   margin: 2rem;
   background-color: var(--bg-c1);
   color: var(--txt-c1);
@@ -505,10 +509,21 @@ a.task-list-item-link:hover li {
   background-color: var(--bg-c2);
   border: 1px solid var(--gen-border);
   border-radius: 0.375rem;
+  color: var(--txt-c2);
+  font-family: var(--fonts-sans);
 }
 
-.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
-  background-color: var(--bg-c2);
+.select2-container--default .select2-selection--single {
+  border: 1px solid var(--gen-border);
+
+}
+
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  background-color: transparent;
+  color: var(--txt-c2);
+  font-family: var(--fonts-sans);
+  margin-bottom: .9rem;
 }
 
 .select2-container--default .select2-results__option--selected {
@@ -518,4 +533,15 @@ a.task-list-item-link:hover li {
 .select2-container--default .select2-results__option--selected:hover,
 .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable:hover {
   background-color: var(--input-hover);
+}
+
+.select2-container--default .select2-selection--single .select2-selection__clear {
+  display: flex;
+  align-items: center;
+}
+
+button.select2-selection__clear span {
+  border-right: none;
+  color: var(--color-danger);
+  margin: .2rem;
 }
