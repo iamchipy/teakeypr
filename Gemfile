@@ -9,6 +9,8 @@ gem "omniauth-google-oauth2"
 
 # added for multiselect search UI
 gem "select2-rails"
+gem "jquery-rails"
+
 
 gem "chartkick"   # For visual reports
 gem "groupdate"   # For date grouping in reports

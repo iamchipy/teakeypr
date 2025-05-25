@@ -1,5 +1,5 @@
 <%# app/views/tasks/_form.html.erb %>
-<%= form_with(model: task) do |form| %>
+<%= form_with(model: task, local: true) do |form| %>
   <% if task.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
@@ -39,20 +39,33 @@
   <div>
     <%= form.label :user_ids, "Assign Users" %><br>
     <%= form.select :user_ids,
-        options_from_collection_for_select(User.all, :id, :email, task.user_ids),
-        {}, # no options here
-        multiple: true,
-        class: "user-select",
-        data: { placeholder: "Select users to assign" } %>
+      options_from_collection_for_select(User.all, :id, :email, task.user_ids),
+      {}, # no options here
+      multiple: true,
+      class: "user-select",
+      data: { placeholder: "Select users to assign" } %>
   </div>
 
+
+
+
   <div>
-    <%= form.label :time_entry_ids, "Select Time Entries" %><br>
-    <%= form.select :time_entry_ids, [], {}, 
-          multiple: true, 
-          class: "time-entry-select", 
-          data: { url: search_time_entries_path } %>
+    <%= form.label :time_entry_ids, "Search Time Entries" %><br>
+    <%= form.select :time_entry_ids, 
+      options_from_collection_for_select(TimeEntry.all, :id, :name, task.time_entry_ids),
+      {},
+      {
+        multiple: true,
+        class: "time-entry-select",
+        data: { controller: "select2", url: search_time_entries_path }
+      } %>
   </div>
+
+
+
+
+
+
 
   <div>
     <%= form.label :completed, style: "display: block" %>
@@ -63,3 +76,15 @@
     <%= form.submit %>
   </div>
 <% end %>
+
+<script>
+  document.addEventListener('turbo:load', function () {
+    console.log("Inline turbo:load firing");
+    const el = document.querySelector('.time-entry-select');
+    if (el) {
+      console.log("Found .time-entry-select", el);
+    } else {
+      console.warn("No .time-entry-select found");
+    }
+  });
+</script>
