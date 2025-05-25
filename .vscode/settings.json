@@ -13,6 +13,12 @@
                 "match": "\\.rb$", // regex to match file extension
                 "isAsync": true,
                 "cmd": "ruby bin/rb_commenter.rb ${file}" // run your script on save
+            },
+            {
+                // JAVASCRIPT FILES
+                "match": "\\.js$", // regex to match file extension
+                "isAsync": true,
+                "cmd": "ruby bin/js_commenter.rb ${file}" // run your script on save
             }
         ]
     }
