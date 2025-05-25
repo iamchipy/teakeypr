@@ -4,4 +4,5 @@
   <%= link_to 'Created At', root_path(tab: params[:tab], sort: 'created_at') %> 
   <%= link_to 'Deadline', root_path(tab: params[:tab], sort: 'deadline') if params[:tab] == 'tasks' %> 
   <%= link_to 'Duration', root_path(tab: params[:tab], sort: 'duration') if params[:tab] == 'time_entries' %>
+  <%= link_to 'Completed', root_path(tab: params[:tab], sort: 'completed') if params[:tab] == 'time_entries' %>
 </div>
