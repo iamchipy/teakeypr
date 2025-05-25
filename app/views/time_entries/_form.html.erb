@@ -28,19 +28,34 @@
   </div>
 
   <div>
-    <%= form.label :user_id, "Assigned User", style: "display: block" %>
-    <%= form.collection_select :user_id, User.all, :id, :email, prompt: "Select a user", selected: time_entry.user_id || current_user.id  %>
-  </div>
-
-  <div>
     <%= form.label :task_id, "Assigned Task", style: "display: block" %>
     <%= form.collection_select :task_id, Task.all, :id, :name, prompt: "Select a task (optional)", selected: time_entry.task_id || nil  %>
   </div>
 
   <div>
+    <%= form.label :user_id, "Assign Users" %><br>
+    <%= form.select :user_id, 
+      options_from_collection_for_select(User.all, :id, :name, time_entry.user_id),
+      {}, # no options here
+      {
+        multiple: false,
+        class: "user-select",
+        data: { 
+          placeholder: "Select users to assign",
+          controller: "select2", 
+          "select2-url-value" => search_users_path,
+          "select2-preselected-ids-value" => [time_entry.user_id]
+        },
+      } 
+    %>
+
+
+
+  <div>
     <%= form.label :note, style: "display: block" %>
     <%= form.text_area :note %>
   </div>
+
 
   <div>
     <%= form.submit %>
