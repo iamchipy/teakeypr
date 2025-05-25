@@ -1,3 +1,4 @@
+<%# app/views/time_entries/edit.html.erb %>
 <% content_for :title, "Editing time entry" %>
 
 <h1>Editing time entry</h1>
@@ -7,6 +8,6 @@
 <br>
 
 <div>
-  <%= link_to "Show this time entry", @time_entry %> |
-  <%= link_to "Back to time entries", time_entries_path %>
+  <%= link_to "Show this time entry", @time_entry, class: "btn-link" %>
+  <%= link_to "Back to time entries", time_entries_path, class: "btn-link"  %>
 </div>

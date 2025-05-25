@@ -5,8 +5,10 @@
   <% projects.each do |project| %>
     <%= link_to project_path(project), class: "project-list-item-link" do %>
       <li>
-        <strong><%= project.name %></strong> |
+        <strong><%= project.name %></strong> 
         Created: <%= project.created_at.to_date %> |
+        Total: <%= "TotalProjTime" %> |
+        Users: <%= project.users.count %> |
         Tasks: <%= project.tasks.count %>
       </li>
     <% end %>

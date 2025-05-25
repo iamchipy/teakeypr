@@ -1,4 +1,11 @@
+<%# app/views/time_entries/_time_entry.html.erb %>
 <div id="<%= dom_id time_entry %>">
+
+  <p>
+    <strong>Name:</strong>
+    <%= time_entry.name %>
+  </p>
+
   <p>
     <strong>Start time:</strong>
     <%= time_entry.start_time %>

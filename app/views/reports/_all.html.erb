@@ -20,8 +20,8 @@
   <% projects.each do |project| %>
     <%= link_to project_path(project), class: "project-list-item-link" do %>
       <li>
-        <strong>PROJECT</strong> |
-        <strong><%= project.name %></strong> |
+        <strong>PROJECT</strong> 
+        <strong><%= project.name %></strong> 
         Created: <%= project.created_at.to_date %> |
         Tasks: <%= project.tasks.count %>
       </li>
@@ -32,7 +32,7 @@
     <%= link_to time_entry_path(entry), class: "time_entry-list-item-link" do %>
       <li>
         <strong>ENTRY</strong>
-        <strong><%= entry.name %></strong> |
+        <strong><%= entry.name %></strong> 
         Task: <%= entry.task&.name || 'Unassigned' %> |
         Duration: <%= distance_of_time_in_words(entry.start_time, entry.end_time) %>|
         Start: <%= entry.start_time %> 

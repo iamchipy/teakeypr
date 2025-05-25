@@ -33,7 +33,7 @@
     <ul class="time_entry-button-group">
       <% task.time_entries.each do |emtry| %>
         <li>
-          <%= link_to emtry.id, time_entry_path(emtry), class: "btn-link time_entry-button" %>
+          <%= link_to emtry.name, time_entry_path(emtry), class: "btn-link time_entry-button" %>
         </li>
       <% end %>
     </ul>
