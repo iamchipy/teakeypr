@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_24_180057) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_25_002417) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -77,7 +77,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_24_180057) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "tasks", "projects"
+  add_foreign_key "tasks", "projects", on_delete: :nullify
   add_foreign_key "time_entries", "tasks"
   add_foreign_key "time_entries", "users"
 end
