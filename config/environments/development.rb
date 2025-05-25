@@ -76,5 +76,5 @@ Rails.application.configure do
 
   config.require_master_key = true
   config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
-  config.log_level = :debug
+  # config.log_level = :debug
 end
