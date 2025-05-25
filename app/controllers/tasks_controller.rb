@@ -1,6 +1,8 @@
+# app/controllers/tasks_controller.rb
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
+  include AccessControl
 
   # Add this block near the top of the controller
   rescue_from ActiveRecord::RecordNotFound do
@@ -22,9 +24,7 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    # user scoped search
-    @tasks = current_user.tasks
-    # @tasks = current_user.tasks.includes(:project, :users, :time_entries)  # Use includes to avoid N+1 queries
+    @tasks = collect_accessible_tasks
   end
 
   # GET /tasks/1 or /tasks/1.json

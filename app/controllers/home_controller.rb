@@ -1,5 +1,6 @@
 # app/controllers/home_controller.rb
 class HomeController < ApplicationController
+  include AccessControl
   before_action :authenticate_user!
 
   def index
@@ -34,17 +35,20 @@ class HomeController < ApplicationController
   end
 
 
+
   private
 
   def filtered_projects
-    scope = current_user.projects
+    scope = collect_accessible_projects
     scope = scope.order(@sort) if @sort.present?
     scope
   end
 
   # Filter tasks based on project_id, sort, and other params
   def filtered_tasks
-    scope = current_user.tasks.distinct
+    # first we make sure to check for any tasks that user should have access to but is NOT
+    # directly assigned but indirectly via a task
+    scope = collect_accessible_tasks
     scope = scope.where(project_id: @project_id) if @project_id.present?
     scope = scope.order(@sort) if @sort.present?
     scope
