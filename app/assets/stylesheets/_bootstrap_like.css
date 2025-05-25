@@ -183,11 +183,21 @@ ul li {
   margin: .5rem;
 }
 
+ul li:has(strong) {
+  display: flex;
+  align-items: center;
+
+  padding: 0.5rem 1rem;
+  /* Optional: for better spacing */
+}
+
 ul li strong {
-  display: inline-block;
+  display: inline-grid;
   width: 100px;
   font-weight: 600;
   color: var(--txt-c2);
+  align-content: center;
+
 }
 
 .notice,
