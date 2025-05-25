@@ -2,14 +2,28 @@
 <!DOCTYPE html>
 <html>
   <head>
-
     <title><%= content_for(:title) || "Teakeypr" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+
+
+    <!--ADDED for Select2 through CDN options-->
+    <!-- jQuery (must come first) -->
+    <%= javascript_include_tag "https://code.jquery.com/jquery-3.6.0.min.js"%>
+    <!-- Select2 JS -->
+    <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"%>
+    <!-- Select2 CSS -->
+    <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css", rel: "stylesheet" %>
+
+    <!--Should happen before data-turbo-track-->
+    <%= javascript_importmap_tags %>
+
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%#= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload" %>
 
     <%= yield :head %>
 
@@ -22,15 +36,12 @@
     <%= favicon_link_tag 'favicon.ico' %>
 
 
-    
-    <!--ADDED for Select2 through CDN options-->
-    <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css", rel: "stylesheet" %>
-    <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js", defer: true %>
+
 
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    
   </head>
 
   <body>
