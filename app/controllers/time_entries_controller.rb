@@ -1,7 +1,9 @@
+# app/controllers/time_entries_controller.rb
 class TimeEntriesController < ApplicationController
   before_action :set_time_entry, only: %i[ show edit update destroy ]
   before_action :authorize_user!, only: %i[show edit update destroy]  # redirects defensively
   before_action :authenticate_user!
+  before_save :set_duration
 
   # GET /time_entries or /time_entries.json
   def index
@@ -67,6 +69,10 @@ class TimeEntriesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_time_entry
       @time_entry = TimeEntry.find(params.expect(:id))
+    end
+
+    def set_duration
+      self.duration = (end_time && start_time) ? end_time - start_time : 0
     end
 
     # Only allow a list of trusted parameters through.
