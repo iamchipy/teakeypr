@@ -46,6 +46,13 @@
         data: { placeholder: "Select users to assign" } %>
   </div>
 
+  <div>
+    <%= form.label :time_entry_ids, "Select Time Entries" %><br>
+    <%= form.select :time_entry_ids, [], {}, 
+          multiple: true, 
+          class: "time-entry-select", 
+          data: { url: search_time_entries_path } %>
+  </div>
 
   <div>
     <%= form.label :completed, style: "display: block" %>

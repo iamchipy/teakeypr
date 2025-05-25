@@ -65,6 +65,12 @@ class TimeEntriesController < ApplicationController
     end
   end
 
+  def search
+    query = params[:q].to_s.downcase
+    entries = TimeEntry.where("LOWER(name) LIKE ?", "%#{query}%").limit(20)
+    render json: entries.map { |e| { id: e.id, name: e.name, duration: e.duration.to_i } }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_time_entry

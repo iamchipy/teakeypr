@@ -7,6 +7,9 @@ gem "omniauth-rails_csrf_protection"
 gem "omniauth-discord"
 gem "omniauth-google-oauth2"
 
+# added for multiselect search UI
+gem "select2-rails"
+
 gem "chartkick"   # For visual reports
 gem "groupdate"   # For date grouping in reports
 gem "pg", "~> 1.1" # Check for the latest version on RubyGems

@@ -2,4 +2,5 @@
  *= require_self
  *= require _bootstrap_like.css
  *= require _time_entries 
+ *= require select2
  */
