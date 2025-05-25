@@ -1,7 +1,7 @@
 # config/routes.rb
 Rails.application.routes.draw do
   resources :projects
-  resources :tasks
+  # resources :tasks
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :tasks do
     collection do
       get "list"
+      get :search
     end
   end
 

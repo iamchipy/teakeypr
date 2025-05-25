@@ -484,6 +484,7 @@ a.task-list-item-link:hover li {
   background-color: var(--bg-c2);
 }
 
+
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
   color: var(--color-primary);
   background-color: var(--bg-c1);
@@ -526,6 +527,7 @@ a.task-list-item-link:hover li {
   margin-bottom: .9rem;
 }
 
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable,
 .select2-container--default .select2-results__option--selected {
   background-color: var(--input-selected);
 }

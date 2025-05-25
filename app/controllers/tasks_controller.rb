@@ -92,6 +92,21 @@ class TasksController < ApplicationController
     end
   end
 
+  def search
+    term = params[:q].to_s.strip
+
+    # better parsing since I've not locked in var type in JS
+    exclude_ids_raw = params[:exclude_ids]
+    exclude_ids = exclude_ids_raw.is_a?(Array) ? exclude_ids_raw.map(&:to_i) : exclude_ids_raw.to_s.split(",").map(&:to_i)
+
+    # just for debug and tracking
+    Rails.logger.debug "Task Search: '#{term}' Exclude(#{exclude_ids.inspect})"
+
+    tasks = Task.where.not(id: exclude_ids)
+    tasks = tasks.where("name ILIKE ?", "%#{term}%") if term.present?
+
+    render json: tasks.limit(20).map { |t| { id: t.id, text: "#{t.name}" } }
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

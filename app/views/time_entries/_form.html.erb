@@ -29,7 +29,20 @@
 
   <div>
     <%= form.label :task_id, "Assigned Task", style: "display: block" %>
-    <%= form.collection_select :task_id, Task.all, :id, :name, prompt: "Select a task (optional)", selected: time_entry.task_id || nil  %>
+    <%= form.select :task_id, 
+      options_from_collection_for_select(Task.all, :id, :name, time_entry.task_id),
+      {}, # no options here
+      {
+        multiple: false,
+        class: "user-select",
+        data: { 
+          placeholder: "Select task to assign",
+          controller: "select2", 
+          "select2-url-value" => search_tasks_path,
+          "select2-preselected-ids-value" => [time_entry.task_id]
+        },
+      } 
+    %>  
   </div>
 
   <div>
@@ -41,13 +54,14 @@
         multiple: false,
         class: "user-select",
         data: { 
-          placeholder: "Select users to assign",
+          placeholder: "Select user to assign",
           controller: "select2", 
           "select2-url-value" => search_users_path,
           "select2-preselected-ids-value" => [time_entry.user_id]
         },
       } 
     %>
+  </div>
 
 
 
