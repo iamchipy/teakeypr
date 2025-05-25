@@ -48,18 +48,24 @@
 
 
 
-
+ 
   <div>
     <%= form.label :time_entry_ids, "Search Time Entries" %><br>
     <%= form.select :time_entry_ids, 
-      options_from_collection_for_select(TimeEntry.all, :id, :name, task.time_entry_ids),
+      options_from_collection_for_select(TimeEntry.where(id: task.time_entry_ids), :id, :name, task.time_entry_ids),
       {},
       {
         multiple: true,
         class: "time-entry-select",
-        data: { controller: "select2", url: search_time_entries_path }
+        data: { 
+          controller: "select2", 
+          "select2-url-value" => search_time_entries_path,
+          "select2-preselected-ids-value" => task.time_entry_ids.join(",")  # Pass preselected ones
+        },
+         
       } %>
   </div>
+
 
 
 
@@ -76,15 +82,3 @@
     <%= form.submit %>
   </div>
 <% end %>
-
-<script>
-  document.addEventListener('turbo:load', function () {
-    console.log("Inline turbo:load firing");
-    const el = document.querySelector('.time-entry-select');
-    if (el) {
-      console.log("Found .time-entry-select", el);
-    } else {
-      console.warn("No .time-entry-select found");
-    }
-  });
-</script>

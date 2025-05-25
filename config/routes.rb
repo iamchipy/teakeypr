@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   resources :time_entries do  # , only: [ :new, :create ] do
     collection do
       get "list"  # /time_entries/list
-      get :search  # added for dynamic/async searching in Select2 multiselector
+      get :search # , to: "time_entries#search" # added for dynamic/async searching in Select2 multiselector
     end
   end
 

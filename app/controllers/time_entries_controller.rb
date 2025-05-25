@@ -65,16 +65,47 @@ class TimeEntriesController < ApplicationController
     end
   end
 
+  # def search
+  #   query = params[:q].to_s.downcase
+  #   entries = TimeEntry.where("LOWER(name) LIKE ?", "%#{query}%").limit(20)
+  #   render json: entries.map { |e| { id: e.id, name: e.name, duration: e.duration.to_i } }
+  # end
+
+  # def search
+  #   term = params[:q]
+  #   exclude_ids = params[:exclude_ids].presence || []
+
+  #   results = TimeEntry
+  #     .where.not(id: exclude_ids)
+  #     .where("name ILIKE ?", "%#{term}%")
+  #     .limit(20)
+
+  #   render json: results.select(:id, :name)
+  # end
+
+
   def search
-    query = params[:q].to_s.downcase
-    entries = TimeEntry.where("LOWER(name) LIKE ?", "%#{query}%").limit(20)
-    render json: entries.map { |e| { id: e.id, name: e.name, duration: e.duration.to_i } }
+    term = params[:q].to_s.strip
+
+    # better parsing since I've not locked in var type in JS
+    exclude_ids_raw = params[:exclude_ids]
+    exclude_ids = exclude_ids_raw.is_a?(Array) ? exclude_ids_raw.map(&:to_i) : exclude_ids_raw.to_s.split(",").map(&:to_i)
+
+    # just for debug and tracking
+    Rails.logger.debug "Search term: '#{term}'"
+    Rails.logger.debug "Exclude IDs: #{exclude_ids.inspect}"
+
+    time_entries = TimeEntry.where.not(id: exclude_ids)
+    time_entries = time_entries.where("name ILIKE ?", "%#{term}%") if term.present?
+
+    render json: time_entries.limit(20).map { |t| { id: t.id, text: "#{t.name} #{t.duration}" } }
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_time_entry
-      @time_entry = TimeEntry.find(params.expect(:id))
+      @time_entry = TimeEntry.find(params[:id])
     end
 
 

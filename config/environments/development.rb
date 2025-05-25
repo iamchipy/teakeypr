@@ -1,3 +1,4 @@
+# config/environments/development.rb
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
@@ -75,4 +76,5 @@ Rails.application.configure do
 
   config.require_master_key = true
   config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
+  config.log_level = :debug
 end
