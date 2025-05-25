@@ -28,7 +28,7 @@ class HomeController < ApplicationController
       @projects = filtered_projects
       @tasks = filtered_tasks
     else
-      @time_entries = TimeEntry.includes(task: :project).all
+      @time_entries = TimeEntry.all
       @projects = Project.all
       @tasks = Task.all
     end
@@ -56,7 +56,7 @@ class HomeController < ApplicationController
 
   # Filter time entries based on task_id, project_id, and other params
   def filtered_time_entries
-    scope = current_user.time_entries.includes(task: :project)
+    scope = current_user.time_entries # .includes(task: :project)
     scope = scope.where(task_id: @task_id) if @task_id.present?
     scope = scope.joins(:task).where(tasks: { project_id: @project_id }) if @project_id.present?
 
