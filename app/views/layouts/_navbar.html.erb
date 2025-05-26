@@ -9,9 +9,9 @@
 
 
    <% if user_signed_in? %>
-      <span class="nav-float-right" style="margin-right: 10px;">
-         Signed in as <strong><%= current_user.name || current_user.email || "User" %></strong>
-      </span>
+
+      <%= render "layouts/navbar_profile", current_user: @current_user %>
+
       <%= link_to "Logout", destroy_user_session_path, method: :delete%>
    <% else %>
       <%= link_to "Login", new_user_session_path, class: "nav-float-right" %>

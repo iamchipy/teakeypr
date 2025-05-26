@@ -1,4 +1,4 @@
-# This file is auto-generated from the current state of the database. Instead
+# db/schema.rb
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_25_012354) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_25_232347) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -77,6 +77,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_25_012354) do
     t.string "uid"
     t.jsonb "last_omniauth_data"
     t.jsonb "current_omniauth_data"
+    t.string "image_url"
+    t.string "avatar"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
