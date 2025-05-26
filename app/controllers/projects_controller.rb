@@ -1,3 +1,4 @@
+# app/controllers/projects_controller.rb
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
@@ -51,13 +52,36 @@ class ProjectsController < ApplicationController
 
   # DELETE /projects/1 or /projects/1.json
   def destroy
-    @project.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to projects_path, status: :see_other, notice: "Project was successfully destroyed." }
-      format.json { head :no_content }
+    if @project.tasks.exists?
+      respond_to do |format|
+        format.html { redirect_to tasks_path, alert: "Cannot delete Project with Tasks still assigned." }
+        format.json { render json: { error: "Cannot delete Project with Tasks still assigned." }, status: :unprocessable_entity }
+        format.turbo_stream do
+          redirect_to project_path, alert: "Cannot delete Project with Tasks still assigned. (turbo)"
+        end
+      end
+    else
+      @project.destroy
+      respond_to do |format|
+        format.html { redirect_to tasks_path, status: :see_other, notice: "Project was successfully destroyed." }
+        format.json { head :no_content }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.remove(@project)
+        end
+      end
     end
   end
+
+
+
+
+
+
+
+
+
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

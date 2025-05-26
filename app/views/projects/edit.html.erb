@@ -1,3 +1,4 @@
+<%# app/views/projects/edit.html.erb %>
 <% content_for :title, "Editing project" %>
 
 <h1>Editing project</h1>
@@ -7,6 +8,6 @@
 <br>
 
 <div>
-  <%= link_to "Show this project", @project %> |
-  <%= link_to "Back to projects", projects_path %>
+  <%= link_to "Show this project", @project, class: "btn-link" %> |
+  <%= link_to "Back to projects", projects_path, class: "btn-link"  %>
 </div>
