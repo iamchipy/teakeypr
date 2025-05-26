@@ -4,6 +4,7 @@
 <% content_for :title, "Time Entries" %>
 
 <h1>Time Entries</h1>
+<%= link_to "New time entry", new_time_entry_path,class: "btn-link" %>
 
 <div id="time_entries">
 
@@ -16,4 +17,4 @@
   <% end %>  
 </div>
 
-<%= link_to "New time entry", new_time_entry_path,class: "btn-link" %>
+

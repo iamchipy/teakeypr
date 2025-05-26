@@ -2,9 +2,14 @@
 
 
 
-<%= link_to "#", class: "nav-btn nav-float-right" do%>
+<%= link_to destroy_user_session_path, method: :delete, class: "nav-btn nav-float-right" do%>
     <div class="vertical-float-wrapper profile ">
         <strong><%= current_user&.name || current_user&.email || "User" %></strong>
+        <br>
+        <strong> (Logout)</strong>
         <%= image_tag current_user.avatar, alt: "Profile Image", width: nil if current_user.avatar.attached? %>
     </div>
+
 <% end %>
+
+

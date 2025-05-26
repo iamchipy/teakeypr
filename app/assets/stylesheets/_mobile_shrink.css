@@ -1,0 +1,28 @@
+/* @media (width:) {} */
+
+@media (max-width: 480px) {
+
+    /* Targets everything beyond the profile using Nth to be dynamic */
+    nav>*:nth-child(5),
+    nav .profile strong {
+        display: none;
+    }
+
+    nav {
+        padding: 0;
+    }
+
+    body {
+        padding: .5rem;
+    }
+
+    nav a {
+        font-size: 1em;
+        display: flex;
+    }
+
+    nav .profile img {
+        height: 1.8em;
+    }
+
+}

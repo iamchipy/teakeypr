@@ -2,6 +2,8 @@
  *= require_self
  *= require _bootstrap_like.css
  *= require _time_entries 
+ *= require _mobile_strink.css 
+
 
  *= require select2
  */

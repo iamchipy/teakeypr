@@ -1,6 +1,8 @@
+<%# app/views/tasks/index.html.erb %>
 <% content_for :title, "Tasks" %>
 
 <h1>Tasks</h1>
+<%= link_to "New task", new_task_path, class: "btn-link" %>
 
 <div id="tasks">
   <% if @tasks.present? %>
@@ -12,5 +14,5 @@
   <% end %>
 </div>
 
-<%= link_to "New task", new_task_path, class: "btn-link" %>
+
 
