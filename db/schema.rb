@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_26_023102) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_26_145010) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -42,11 +42,56 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_26_023102) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "ahoy_events", force: :cascade do |t|
+    t.bigint "visit_id"
+    t.bigint "user_id"
+    t.string "name"
+    t.jsonb "properties"
+    t.datetime "time"
+    t.index ["name", "time"], name: "index_ahoy_events_on_name_and_time"
+    t.index ["properties"], name: "index_ahoy_events_on_properties", opclass: :jsonb_path_ops, using: :gin
+    t.index ["user_id"], name: "index_ahoy_events_on_user_id"
+    t.index ["visit_id"], name: "index_ahoy_events_on_visit_id"
+  end
+
+  create_table "ahoy_visits", force: :cascade do |t|
+    t.string "visit_token"
+    t.string "visitor_token"
+    t.bigint "user_id"
+    t.string "ip"
+    t.text "user_agent"
+    t.text "referrer"
+    t.string "referring_domain"
+    t.text "landing_page"
+    t.string "browser"
+    t.string "os"
+    t.string "device_type"
+    t.string "country"
+    t.string "region"
+    t.string "city"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "utm_source"
+    t.string "utm_medium"
+    t.string "utm_term"
+    t.string "utm_content"
+    t.string "utm_campaign"
+    t.string "app_version"
+    t.string "os_version"
+    t.string "platform"
+    t.datetime "started_at"
+    t.index ["user_id"], name: "index_ahoy_visits_on_user_id"
+    t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
+    t.index ["visitor_token", "started_at"], name: "index_ahoy_visits_on_visitor_token_and_started_at"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "ahoy_visit_id"
+    t.index ["ahoy_visit_id"], name: "index_projects_on_ahoy_visit_id"
   end
 
   create_table "projects_users", id: false, force: :cascade do |t|
@@ -63,6 +108,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_26_023102) do
     t.boolean "completed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "ahoy_visit_id"
+    t.index ["ahoy_visit_id"], name: "index_tasks_on_ahoy_visit_id"
     t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 
@@ -81,6 +128,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_26_023102) do
     t.datetime "updated_at", null: false
     t.string "name", default: "Unlabeled"
     t.float "duration", default: 0.0, null: false
+    t.bigint "ahoy_visit_id"
+    t.index ["ahoy_visit_id"], name: "index_time_entries_on_ahoy_visit_id"
     t.index ["duration"], name: "index_time_entries_on_duration"
     t.index ["name"], name: "index_time_entries_on_name"
     t.index ["task_id"], name: "index_time_entries_on_task_id"
@@ -106,8 +155,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_26_023102) do
     t.jsonb "last_omniauth_data"
     t.jsonb "current_omniauth_data"
     t.string "image_url"
+    t.bigint "ahoy_visit_id"
+    t.index ["ahoy_visit_id"], name: "index_users_on_ahoy_visit_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "uu_counter_tracks", force: :cascade do |t|
+    t.string "uuid"
+    t.text "path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

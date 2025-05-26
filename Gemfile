@@ -11,6 +11,9 @@ gem "omniauth-google-oauth2"
 gem "select2-rails"
 gem "jquery-rails"
 
+# Used for visit tracking, maybe more in future
+# https://github.com/ankane/ahoy
+gem "ahoy_matey"
 
 gem "chartkick"   # For visual reports
 gem "groupdate"   # For date grouping in reports

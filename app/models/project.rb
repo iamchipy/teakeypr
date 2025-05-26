@@ -7,6 +7,9 @@ class Project < ApplicationRecord
 
   validates :name, presence: true
 
+  # used for Anoy tracking
+  visitable :ahoy_visit
+
   # POSSIBLE later improvement if I want to stop orphans
   # before_destroy :ensure_no_tasks_exist
   # private

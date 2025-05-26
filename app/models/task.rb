@@ -5,6 +5,8 @@ class Task < ApplicationRecord
 
   # to guard deletions at model level
   has_many :time_entries, dependent: :restrict_with_error
+  # used for Anoy tracking
+  visitable :ahoy_visit
 
   validates :name, presence: true
 end

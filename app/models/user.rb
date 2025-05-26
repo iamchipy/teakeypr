@@ -23,6 +23,9 @@ class User < ApplicationRecord
 
   has_one_attached :avatar  # ActiveStorage for profile images
 
+  # used for Anoy tracking
+  visitable :ahoy_visit
+  has_many :visits, class_name: "Ahoy::Visit"
 
   # All projects user has access to (directly or via tasks)
   def all_accessible_projects
