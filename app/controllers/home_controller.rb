@@ -3,6 +3,7 @@ class HomeController < ApplicationController
   include AccessControl
   before_action :authenticate_user!
 
+
   def index
     # Re-Enabling this because we want Time_Entries to auto-load when
     # we navigate here from another tab
