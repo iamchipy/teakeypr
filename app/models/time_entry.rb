@@ -10,6 +10,8 @@ class TimeEntry < ApplicationRecord
   validates :end_time, presence: true
 
   before_save :set_duration
+  # used for Anoy tracking
+  visitable :ahoy_visit
 
   private
 
