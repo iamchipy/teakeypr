@@ -5,7 +5,6 @@
 <%= link_to "#", class: "nav-btn nav-float-right" do%>
     <div class="vertical-float-wrapper profile ">
         <strong><%= current_user&.name || current_user&.email || "User" %></strong>
-        <%= image_tag current_user.avatar, alt: "Profile Image" if current_user.avatar.attached? %>
+        <%= image_tag current_user.avatar, alt: "Profile Image", width: nil if current_user.avatar.attached? %>
     </div>
 <% end %>
-    
