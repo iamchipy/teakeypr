@@ -1,4 +1,6 @@
 # app/models/user.rb
+require "open-uri"
+
 class User < ApplicationRecord
   # Devise modules
   devise :database_authenticatable, :registerable,
@@ -19,6 +21,7 @@ class User < ApplicationRecord
   # Projects indirectly accessible via task assignment
   has_many :projects_from_tasks, -> { distinct }, through: :assigned_tasks, source: :project
 
+  has_one_attached :avatar  # ActiveStorage for profile images
 
 
   # All projects user has access to (directly or via tasks)
@@ -28,25 +31,26 @@ class User < ApplicationRecord
 
   # OmniAuth setup
   def self.from_omniauth(auth)
-    user = find_by(email: auth.info["email"])
+    # refactoring with find/init being a thing
+    user = find_or_initialize_by(email: auth.info.email)
 
-    unless user
-      user = create(
-        name: auth.info.name,
-        email: auth.info.email || auth.info.user || auth.info.user_id || auth.uid,
-        password: Devise.friendly_token[0, 20],
-        provider: auth.provider,
-        uid: auth.uid
-      )
-    else
-      # Ensure these are updated for existing users too
-      user.update(provider: auth.provider, uid: auth.uid)
-    end
+    # just update the profile everytime you sign in
+    user.name = auth.info.name
+    user.email=  auth.info.email || auth.info.user || auth.info.user_id || auth.uid
+    user.password=  Devise.friendly_token[0, 20]
+    user.provider = auth.provider
+    user.uid = auth.uid
+    user.last_omniauth_data = user.current_omniauth_data.presence
+    user.current_omniauth_data = auth.to_h
 
-    user.update_omniauth_hashes(auth)
-    user.update_user_image(user.auth_hash_to_image_url(auth))
+    # new, adding avatare image cached via ActiveStorage
+    # First we check if provider gave a URL
+    img_url = user.auth_hash_to_image_url(auth)
+    user.image_url = img_url.presence
+    # now if we got a URL then lets try fetch it
+    user.update_user_image!
 
-    user.save
+    user.save!
     # return user obj
     user
   end
@@ -55,25 +59,32 @@ class User < ApplicationRecord
 
   # private
 
-  def update_omniauth_hashes(auth_hash)
-    self.last_omniauth_data ||= auth_hash.to_h
-    self.current_omniauth_data = auth_hash.to_h
-  end
-
-  def update_user_image(url)
-    self.image_url = url
+  def update_user_image!
+    return unless self.image_url.present?
+    begin
+      downloaded_image = URI.open(self.image_url)
+      self.avatar.attach(
+        io: downloaded_image,
+        filename: "avatar-#{self.uid}.jpg",
+        content_type: downloaded_image.content_type || "image/jpeg"
+      )
+    rescue OpenURI::HTTPError => e
+      Rails.logger.warn "Avatar download failed with HTTP error: #{e.message}"
+    rescue SocketError => e
+      Rails.logger.warn "Avatar download failed due to network issue: #{e.message}"
+    rescue => e
+      Rails.logger.error "Unexpected error while downloading avatar: #{e.message}"
+    end
   end
 
   def auth_hash_to_image_url(auth_hash)
-      provider = auth_hash["provider"]
-      image_url =
-          case provider
-          when "google_oauth2"
-              auth_hash["info"]["image"]
-          when "discord"
-              uid = auth_hash["uid"]
-              avatar = auth_hash["extra"]["raw_info"]["avatar"]
-              avatar ? "https://cdn.discordapp.com/avatars/#{uid}/#{avatar}.png" : "https://cdn.discordapp.com/embed/avatars/0.png"
-          end
+      case auth_hash["provider"]
+      when "google_oauth2"
+          auth_hash["info"]["image"]
+      when "discord"
+          uid = auth_hash["uid"]
+          avatar = auth_hash["extra"]["raw_info"]["avatar"]
+          avatar ? "https://cdn.discordapp.com/avatars/#{uid}/#{avatar}.png" : "https://cdn.discordapp.com/embed/avatars/0.png"
+      end
   end
 end

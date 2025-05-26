@@ -286,15 +286,19 @@ nav a.active {
 
 .nav-btn strong {
   font-weight: 300;
+  margin: auto;
 }
 
 .profile img {
-  max-height: 2rem;
+  margin: 0 .5rem;
+  height: 100%;
+  object-fit: contain;
 }
 
 .vertical-float-wrapper {
   align-content: center;
   display: inline-flex;
+  height: 100%;
 }
 
 

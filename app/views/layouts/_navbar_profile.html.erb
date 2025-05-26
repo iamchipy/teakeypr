@@ -1,10 +1,11 @@
 <%# app/views/layouts/_navbar_profile.html.erb %>
 
 
-<div class="vertical-float-wrapper nav-float-right">
-    <%= link_to "#", class: "nav-btn" do%>
+
+<%= link_to "#", class: "nav-btn nav-float-right" do%>
+    <div class="vertical-float-wrapper profile ">
         <strong><%= current_user&.name || current_user&.email || "User" %></strong>
-        
-    <% end %>
-    <img src="<%= current_user.image_url %>" alt="Profile Image" />
-</div>
+        <%= image_tag current_user.avatar, alt: "Profile Image" if current_user.avatar.attached? %>
+    </div>
+<% end %>
+    
