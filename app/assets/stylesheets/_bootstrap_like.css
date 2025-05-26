@@ -59,11 +59,14 @@ backup
 /* ================================
    General Layout & Base Styles
 ================================== */
+/* html, */
 body {
   font-family: var(--fonts-sans);
-  margin: 2rem;
+  margin: 1rem 1rem 0 1rem;
   background-color: var(--bg-c1);
   color: var(--txt-c1);
+  height: 95vh;
+
 }
 
 h1,
@@ -569,4 +572,43 @@ button.select2-selection__clear span {
   border-right: none;
   color: var(--color-danger);
   margin: .2rem;
+}
+
+/* FOOTER SETTINGS */
+.float-down-container {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.float-down-content {
+  position: absolute;
+  bottom: 2vh;
+  width: 100%;
+  height: 40px;
+  /* Adjust as needed */
+  background-color: var(--bg-c1);
+  color: var(--txt-c2);
+  text-align: center;
+  line-height: 5vh;
+  /* z-index: -1; */
+  /* Places footer behind content */
+}
+
+.float-down-content a {
+  color: var(--color-primary);
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center;
+  /* Centers horizontally */
+  align-items: center;
+  /* Centers vertically */
+}
+
+
+.content {
+  padding-bottom: 50px;
+  /* Ensure content doesn't overlap with footer */
 }
