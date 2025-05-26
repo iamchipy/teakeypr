@@ -1,17 +1,22 @@
 <%# app/views/layouts/_navbar.html.erb %>
 
 <nav>
-<%= nav_link_to "Home", root_path, "home" %>
-<%= nav_link_to "Entries", time_entries_path, "time_entries" %>
-<%= nav_link_to "Tasks", tasks_path, "tasks" %>
-<%= nav_link_to "Projects", projects_path, "projects" %>
-<%= nav_link_to "Log Time", new_time_entry_path, "time_entries" %>
+<%#= nav_link_to "Home", root_path, "home" %>
+<%#= nav_link_to "Entries", time_entries_path, "time_entries" %>
+<%#= nav_link_to "Tasks", tasks_path, "tasks" %>
+<%#= nav_link_to "Projects", projects_path, "projects" %>
+<%#= nav_link_to "Log Time", new_time_entry_path, "time_entries" %>
+
+<%= nav_link_to "Home", root_path, controller: "home" %>
+<%= nav_link_to "Entries", time_entries_path, controller: "time_entries" %>
+<%= nav_link_to "Tasks", tasks_path, controller: "tasks" %>
+<%= nav_link_to "Projects", projects_path, controller: "projects" %>
+<%= nav_link_to "Log Time", new_time_entry_path, controller: "time_entries", action: "new" %>
+
 
 
    <% if user_signed_in?%>
-
       <%= render "layouts/navbar_profile"%>
-
       <%= link_to "Logout", destroy_user_session_path, method: :delete%>
    <% else %>
       <%= link_to "Login", new_user_session_path, class: "nav-float-right" %>
