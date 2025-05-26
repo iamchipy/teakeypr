@@ -4,7 +4,7 @@ Teakeypr is a web-based time tracking application designed specifically for my f
 
 ![Teakeypr Dashboard](app/assets/images/ss_home_time_entries.png)
 
-### Example of it hosted at https://www.tk.johndavidbasson.com
+### Example of it hosted at https://tk.johndavidbasson.com
 ---
 
 ## Features
